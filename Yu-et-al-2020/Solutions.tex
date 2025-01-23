@@ -1,0 +1,130 @@
+\newcommand*{\titleContent}{《数理逻辑》习题}
+\newcommand*{\authorContent}{赵磊}
+\newif\ifbsixpaper
+% \bsixpapertrue
+\ifbsixpaper
+\documentclass[punct=custom/kaiming,fontset=none]{ctexart}
+\usepackage[b6paper,hmargin=.4in,vmargin=.3in]{geometry}
+\title{\Large\bfseries\titleContent}
+\else
+\documentclass[a4paper,punct=custom/kaiming,fontset=none]{ctexart}
+\usepackage[hmargin=1in,vmargin=1in]{geometry}
+\title{\bfseries\titleContent}
+\fi
+
+\author{\authorContent}
+
+\usepackage{mathtools,amssymb,amsthm}
+\newcommand\SetSymbol[1][]{%
+  \nonscript\:#1\vert
+  \allowbreak
+  \nonscript\:
+  \mathopen{}}
+% \DeclarePairedDelimiterX{\paren}[1]{\lparen}{\rparen}{%
+%   \renewcommand{\given}{\SetSymbol[\delimsize]}#1}
+\DeclarePairedDelimiterX{\brce}[1]{\lbrace}{\rbrace}{%
+  \newcommand{\given}{\SetSymbol[\delimsize]}#1}
+\usepackage{lualatex-math}
+
+\newif\ifadobe
+% \adobetrue
+
+\ifadobe
+\setmainfont{Latin Modern Roman}[BoldFont=Adobe Heiti Std]
+\setCJKmainfont{Adobe Song Std}[BoldFont=Adobe Heiti Std]
+\else
+\setmainfont{Times New Roman}[BoldFont=Heiti SC,Ligatures=Rare]
+\setCJKmainfont{Songti SC}[BoldFont=Heiti SC]
+\usepackage[math-style=TeX]{unicode-math}
+\setmathfont{Asana Math}
+\fi
+
+\ltjsetparameter{xkanjiskip=.13\zw plus 1pt minus 1pt}
+
+\newcommand*{\enumparen}[1]{\textnormal{（}\makebox[0.5em][c]{#1}\textnormal{）}}
+
+\usepackage{enumitem}
+\setlist[enumerate,1]{label=\enumparen{\arabic*}}
+\setlist[enumerate,2]{label=\enumparen{\alph*}}
+
+\makeatletter
+\def\hhline{%
+  \noalign{\ifnum0=`}\fi\hrule \@height 2\arrayrulewidth \futurelet
+   \reserved@a\@xhline}
+\makeatother
+
+\usepackage{float}
+
+\begin{document}
+\maketitle
+
+此文档为《数理逻辑》（余俊伟 等，2020）一书的非官方习题解答。
+
+\begin{description}
+\item[习题 2.2.6] 前三项都是公式，剩余六项都不是公式。
+\item[习题 2.2.7]
+  \begin{enumerate}
+  \item[]
+  \item 补全括号：
+    \begin{enumerate}
+    \item \(((r \vee (\neg p)) \vee q)\)；
+    \item \(((r \to (p \to p)) \leftrightarrow ((\neg(\neg p)) \vee q))\)。
+    \end{enumerate}
+  \item 简化公式：
+    \begin{enumerate}
+    \item 题有问题，多一个左括号，或者少一个右括号。假设是后者，就有\(p \wedge q \to r\)；
+    \item \(p \to q\)；
+    \item \((r \to p \to q) \to s\)。
+    \end{enumerate}
+  \end{enumerate}
+\item[问题 2.3.8] \(16\)和\(2^n\)。
+\item[问题 2.3.12] 因为前面讨论的原子命题个数是有穷的（finite），而且现在讨论的情况是有可数无穷多个（countably infinite）原子命题。
+\item[问题 2.3.21]
+  \begin{enumerate}
+  \item[] 
+  \item 由下表可知，它是重言式。
+    \begin{table}[H]
+      \centering
+      \begin{tabular}[t]{ccccc}
+        \hhline
+        \(p\) & \(q\) & \(p \to q\) & \(p \land (p \to q)\) & \(p \land (p \to q) \to q\) \\
+        \hline
+        1 & 1 & 1 & 1 & 1 \\
+        1 & 0 & 0 & 0 & 1 \\
+        0 & 1 & 1 & 0 & 1 \\
+        0 & 0 & 1 & 0 & 1 \\
+        \hline
+      \end{tabular}
+    \end{table}
+  \item 由下表可知，它是矛盾式。
+    \begin{table}[H]
+      \centering
+      \begin{tabular}[t]{cccccc}
+        \hhline
+        \(p\) & \(q\) & \(p \to q\) & \((p \to q) \to p\) & \(\neg p\) & \(((p \to q) \to p) \land \neg p\) \\
+        \hline
+        1 & 1 & 1 & 1 & 0 & 0 \\
+        1 & 0 & 0 & 1 & 0 & 0 \\
+        0 & 1 & 1 & 0 & 1 & 0 \\
+        0 & 0 & 1 & 0 & 1 & 0 \\
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{enumerate}
+\item[问题 2.3.22] \(v(\neg p \land (q \to r)) = 0\)。
+\item[问题 2.3.23] 对于任意的赋值\(v\)，要么\(v(p) = 1\)，要么\(v(p) = 0\)。在前者的情况下，有\(v(\neg p) = 0\)，从而\(v(p \land \neg p) = 0\)。同理，在后者的情况下，也有\(v(p \land \neg p) = 0\)。所以它是矛盾式。\qed
+\item[问题 2.3.24]
+  \begin{enumerate}
+  \item[]
+  \item 对于任意的赋值\(v\)，要么\(v(\phi) = 1\)，要么\(v(\phi) = 0\)。若是前者，则\(v(\psi \to \phi) = 1\)，自然有\(v(\phi \to \psi \to \phi) = 1\)。同理，若是后者，则直接有\(v(\phi \to \psi \to \phi) = 1\)。因此，它是重言式。\qed
+  \item 对于任意的赋值\(v\)，要么\(v(\phi \to \theta) = 1\)，要么\(v(\phi \to \theta) = 0\)。若是前者，则有\(v((\phi \to \psi) \to (\phi \to \theta)) = 1\)，从而\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)。若是后者，则有\(v(\phi) = 1\)且\(v(\theta) = 0\)。此时，若\(v(\psi) = 1\)，则有\(v(\phi \to \psi \to \theta) = 0\)，从而\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)；若\(v(\psi) = 0\)，则有\(v(\phi \to \psi) = 0\)，从而有\(v((\phi \to \psi) \to (\phi \to \theta)) = 1\)和\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)。因此，它是重言式。\qed
+  \item 对于任意的赋值\(v\)，要么\(v(\phi) = 1\)，要么\(v(\phi) = 0\)。若是前者，则自然有\(v((\neg\phi \to \neg\psi) \to \phi) = 1\)，从而\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)。若是后者，则\(v(\neg\phi) = 1\)。此时，若\(v(\psi) = 1\)，则\(v(\neg\psi) = 0\)，从而有\(v(\neg\phi \to \neg\psi) = 0\)、\(v((\neg\phi \to \neg\psi) \to \phi) = 1\)和\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)；若\(v(\psi) = 0\)，则\(v(\neg\phi \to \psi) = 0\)，从而\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)。因此，它是重言式。\qed
+  \end{enumerate}
+\item[问题 2.3.25] 设\(v\)为任意满足\(v(\brce{p \to q, \neg p \to \neg q}) = 1\)的赋值函数。因为\(v(p \to q) = 1\)，所以\(v(p) = 0\)或者\(v(q) = 1\)。若\(v(p) = 0\)，则\(v(\neg p) = 1\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg q) = 1\)，从而有\(v(q) = 0\)和\(v(p \leftrightarrow q) = 1\)。若\(v(q) = 1\)，则\(v(\neg q) = 0\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg p) = 0\)，从而有\(v(p) = 1\)和\(v(p \leftrightarrow q) = 1\)。由\(v\)的任意性可得\(\brce{p \to q, \neg p \to \neg q} \models p \leftrightarrow q\)。\qed
+\end{description}
+
+\end{document}
+
+% Local Variables:
+% TeX-engine: luatex
+% End:
