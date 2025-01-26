@@ -1,0 +1,196 @@
+\newcommand*{\titleContent}{与《数理逻辑》相配套的一些证明和演绎}
+\newcommand*{\authorContent}{赵磊}
+\newif\ifbsixpaper
+% \bsixpapertrue
+\ifbsixpaper
+\documentclass[punct=custom/kaiming,fontset=none]{ctexart}
+\usepackage[b6paper,hmargin=.4in,vmargin=.3in]{geometry}
+\title{\Large\bfseries\titleContent}
+\else
+\documentclass[a4paper,punct=custom/kaiming,fontset=none]{ctexart}
+\usepackage[hmargin=1in,vmargin=1in]{geometry}
+\title{\bfseries\titleContent}
+\fi
+
+\author{\authorContent}
+
+\usepackage{mathtools,amssymb,amsthm}
+\newcommand\SetSymbol[1][]{%
+  \nonscript\:#1\vert
+  \allowbreak
+  \nonscript\:
+  \mathopen{}}
+% \DeclarePairedDelimiterX{\paren}[1]{\lparen}{\rparen}{%
+%   \renewcommand{\given}{\SetSymbol[\delimsize]}#1}
+\DeclarePairedDelimiterX{\brce}[1]{\lbrace}{\rbrace}{%
+  \newcommand*{\given}{\SetSymbol[\delimsize]}#1}
+\usepackage{lualatex-math}
+
+\newif\ifadobe
+% \adobetrue
+
+\ifadobe
+\setmainfont{Latin Modern Roman}[BoldFont=Adobe Heiti Std]
+\setCJKmainfont{Adobe Song Std}[
+  BoldFont=Adobe Heiti Std,
+  ItalicFont=Adobe Kaiti Std
+]
+\else
+\setmainfont{Times New Roman}[BoldFont=Heiti SC,Ligatures=Rare]
+\setCJKmainfont{Songti SC}[BoldFont=Heiti SC,ItalicFont=Kaiti SC]
+\usepackage[
+  math-style=TeX,
+  warnings-off={mathtools-colon,mathtools-overbracket}
+]{unicode-math}
+\setmathfont{Asana Math}
+% \setmathfont{STIX Two Math}[range="002C]
+\fi
+
+\newcommand*{\enumparen}[1]{\textnormal{（}\makebox[0.5em][c]{#1}\textnormal{）}}
+
+% https://www.logicmatters.net/resources/nd3.sty
+% https://www.logicmatters.net/resources/pdfs/nd-manual2a.pdf
+\usepackage{nd3}
+
+\usepackage{xcolor}
+\usepackage[
+  pdftitle={\titleContent},
+  pdfauthor={\authorContent},
+  hyperfootnotes=false,
+  colorlinks=true,
+  urlcolor={.},
+  linkcolor={.}
+]{hyperref}
+
+\makeatletter
+\newcommand*{\theH@NDlines}{\theHenumi.\number\value{@NDlines}}
+\makeatother
+
+\AtBeginDocument{%
+  % \renewcommand{\perp}{\mathrel{\bot}}
+  \let\oldref\ref
+  \let\proves\vdash
+  \let\leq\leqslant
+  \let\le\leq
+  \let\geq\geqslant
+  \let\ge\geq}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\item \label{thm:iden} \(\proves \phi \to \phi\)
+  \begin{ND}
+    \ndl{}{\(\phi \to (\phi \to \phi) \to \phi\)}{\(\rm P_1\)}\label{1}
+    \ndl{}{\((\phi \to (\phi \to \phi) \to \phi) \to (\phi \to \phi \to \phi) \to (\phi \to \phi)\)}{\(\rm P_2\)}\label{2}
+    \ndl{}{\((\phi \to \phi \to \phi) \to (\phi \to \phi)\)}{\ref{1}，\ref{2}，MP}\label{3}
+    \ndl{}{\(\phi \to \phi \to \phi\)}{\(\rm P_1\)}\label{4}
+    \ndl{}{\(\phi \to \phi\)}{\ref{3}，\ref{4}，MP}
+  \end{ND}
+\item \label{thm:abcb} \(\proves \phi \to \psi \to \theta \to \psi\)
+  \begin{ND}
+    \ndl{}{\(\psi \to \theta \to \psi\)}{\(\rm P_1\)}\label{1}
+    \ndl{}{\((\psi \to \theta \to \psi) \to \phi \to (\psi \to \theta \to \psi)\)}{\(\rm P_1\)}\label{2}
+    \ndl{}{\(\phi \to \psi \to \theta \to \psi\)}{\ref{1}，\ref{2}，MP}
+  \end{ND}
+\item \label{ded:axiom1} \(\phi \proves \psi \to \phi\)
+  \begin{ND}
+    \ndl{}{\(\phi\)}{假设}\label{1}
+    \ndl{}{\(\phi \to \psi \to \phi\)}{\(\rm P_1\)}\label{2}
+    \ndl{}{\(\psi \to \phi\)}{\ref{1}，\ref{2}，MP}
+  \end{ND}
+\item \label{ded:axiom2} \(\phi \to \psi \to \theta,\ \psi \proves \phi \to \theta\)
+  \begin{ND}
+    \ndl{}{\(\phi \to \psi \to \theta\)}{假设}\label{1}
+    \ndl{}{\((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\(\rm P_2\)}\label{2}
+    \ndl{}{\(\psi\)}{假设}\label{3}
+    \ndl{}{\(\phi \to \psi\)}{\ref{3}，演绎\oldref{ded:axiom1}}\label{4}
+    \ndl{}{\((\phi \to \psi) \to (\phi \to \theta)\)}{\ref{1}，\ref{2}，MP}\label{5}
+    \ndl{}{\(\phi \to \theta\)}{\ref{4}，\ref{5}，MP}
+  \end{ND}
+\item \label{ded:axiom2add} \(\phi \to \theta \proves \phi \to \psi \to \theta\)
+  \begin{ND}
+    \ndl{}{\(\phi \to \theta \to \psi \to \theta\)}{证明\oldref{thm:abcb}}\label{1}
+    \ndl{}{\((\phi \to \theta \to \psi \to \theta) \to (\phi \to \theta) \to (\phi \to \psi \to \theta)\)}{\(\rm P_1\)}\label{2}
+    \ndl{}{\(\phi \to \theta\)}{假设}\label{3}
+    \ndl{}{\((\phi \to \theta) \to (\phi \to \psi \to \theta)\)}{\ref{1}，\ref{2}，MP}\label{4}
+    \ndl{}{\(\phi \to \psi \to \theta\)}{\ref{3}，\ref{4}，MP}
+  \end{ND}
+\item \label{ded:comm} \(\phi \to \psi \to \theta \proves \psi \to \phi \to \theta\)
+  \begin{ND}
+    \ndl{}{\(\phi \to \psi \to \theta\)}{假设}\label{1}
+    \ndl{}{\((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\(\rm P_2\)}\label{2}
+    \ndl{}{\((\phi \to \psi) \to (\phi \to \theta)\)}{\ref{1}，\ref{2}，MP}\label{3}
+    \ndl{}{\(\psi \to (\phi \to \psi) \to (\phi \to \theta)\)}{\ref{3}，演绎\oldref{ded:axiom1}}\label{4}
+    \ndl{}{\((\psi \to (\phi \to \psi) \to (\phi \to \theta)) \to (\psi \to (\phi \to \psi)) \to (\psi \to (\phi \to \theta))\)}{\(\rm P_2\)}\label{5}
+    \ndl{}{\(\psi \to \phi \to \psi\)}{\(\rm P_1\)}\label{6}
+    \ndl{}{\((\psi \to \phi \to \psi) \to (\psi \to \phi \to \theta)\)}{\ref{4}，\ref{5}，MP}\label{7}
+    \ndl{}{\(\psi \to \phi \to \theta\)}{\ref{6}，\ref{7}，MP}
+  \end{ND}
+\item \label{ded:trans} \(\phi \to \psi,\ \psi \to \theta \proves \phi \to \theta\)
+  \begin{ND}
+    \ndl{}{\(\psi \to \theta\)}{假设}\label{1}
+    \ndl{}{\((\psi \to \theta) \to \phi \to (\psi \to \theta)\)}{\(\rm P_1\)}\label{2}
+    \ndl{}{\(\phi \to \psi \to \theta\)}{\ref{1}，\ref{2}，MP}\label{3}
+    \ndl{}{\((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\(\rm P_2\)}\label{4}
+    \ndl{}{\(\phi \to \psi\)}{假设}\label{5}
+    \ndl{}{\((\phi \to \psi) \to (\phi \to \theta)\)}{\ref{3}，\ref{4}，MP}\label{6}
+    \ndl{}{\(\phi \to \theta\)}{\ref{5}，\ref{6}，MP}
+  \end{ND}
+\item \label{thm:trans} \(\proves (\phi \to \psi) \to (\psi \to \theta) \to (\phi \to \theta)\)
+  \begin{ND}
+    \ndl{}{\((\psi \to \theta) \to \phi \to (\psi \to \theta)\)}{\(\rm P_1\)}\label{1}
+    \ndl{}{\((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\(\rm P_2\)}\label{2}
+    \ndl{}{\((\psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
+    \ndl{}{\((\phi \to \psi) \to (\psi \to \theta) \to (\phi \to \theta)\)}{\ref{3}，演绎\oldref{ded:comm}}
+  \end{ND}
+\item \(\phi \proves (\phi \to \psi) \to \psi\)
+  \begin{ND}
+    \ndl{}{\(\phi\)}{假设}\label{1}
+    \ndl{}{\(\phi \to (\phi \to \psi) \to \phi\)}{\(\rm P_1\)}\label{2}
+    \ndl{}{\((\phi \to \psi) \to \phi\)}{\ref{1}，\ref{2}，MP}\label{3}
+    \ndl{}{\(((\phi \to \psi) \to \phi \to \psi) \to ((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)}{\(\rm P_2\)}\label{4}
+    \ndl{}{\((\phi \to \psi) \to (\phi \to \psi)\)}{证明\oldref{thm:iden}}\label{5}
+    \ndl{}{\(((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)}{\ref{4}，\ref{5}，MP}\label{6}
+    \ndl{}{\((\phi \to \psi) \to \psi\)}{\ref{3}，\ref{6}，MP}
+  \end{ND}
+\item \label{ded:axiom3alt} \(\neg\phi \to \neg\psi \proves \psi \to \phi\)
+  \begin{ND}
+    \ndl{}{\((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi\)}{\(\rm P_3\)}\label{1}
+    \ndl{}{\(\neg\phi \to \neg\psi\)}{假设}\label{2}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to (\neg\phi \to \psi) \to \phi\)}{\ref{1}，演绎\oldref{ded:comm}}\label{3}
+    \ndl{}{\(\psi \to (\neg\phi \to \psi)\)}{\(\rm P_1\)}\label{4}
+    \ndl{}{\((\neg\phi \to \psi) \to \phi\)}{\ref{2},\ref{3}，MP}\label{5}
+    \ndl{}{\(\psi \to \phi\)}{\ref{4}，\ref{5}，演绎\oldref{ded:trans}}
+  \end{ND}
+\item \label{thm:axiom3alt} \(\proves (\neg\phi \to \neg\psi) \to (\psi \to \phi)\)
+  \begin{ND}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to (\neg\phi \to \psi) \to \phi\)}{\(\rm P_3\)，演绎\oldref{ded:comm}}\label{1}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to \psi \to (\neg\phi \to \psi) \to \phi\)}{\ref{1}，演绎\oldref{ded:axiom2add}}\label{2}
+    \ndl{}{\((\psi \to (\neg\phi \to \psi) \to \phi) \to (\psi \to \neg\phi \to \psi) \to (\psi \to \phi)\)}{\(\rm P_2\)}\label{3}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to (\psi \to \neg\phi \to \psi) \to (\psi \to \phi)\)}{\ref{2}，\ref{3}，演绎\oldref{ded:trans}}\label{4}
+    \ndl{}{\(\psi \to \neg\phi \to \psi\)}{\(\rm P_1\)}\label{5}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to (\psi \to \phi)\)}{\ref{4}，\ref{5}，演绎\oldref{ded:axiom2}}
+  \end{ND}
+\item \(\phi,\ \psi \proves \phi \land \psi\)
+  \begin{ND}                    % bug
+    \ndl{}{\(\phi\)}{假设}\label{1}
+    \ndl{}{\(\phi \to \neg\psi\)}{假设}\label{2}
+    \ndl{}{\(\neg\psi\)}{\ref{1}，\ref{2}，MP}\label{3}
+    \ndl{}{\(\neg\psi \to (\phi \to \neg\psi) \to \neg\psi\)}{\(\rm P_1\)}\label{4}
+    \ndl{}{\((\phi \to \neg\psi) \to \neg\psi\)}{\ref{3}，\ref{4}，MP}\label{5}
+    \ndl{}{\(\psi \to (\phi \to \neg\psi) \to \psi\)}{\(\rm P_1\)}\label{6}
+    \ndl{}{\(\psi\)}{假设}\label{7}
+    \ndl{}{\((\phi \to \neg\psi) \to \psi\)}{\ref{6}，\ref{5}，MP}\label{8}
+    \ndl{}{\(((\phi \to \neg\psi) \to \psi) \to ((\phi \to \neg\psi) \to \neg\psi) \to \neg(\phi \to \neg\psi)\)}{\(\rm P_3\)}\label{9}
+    \ndl{}{\(((\phi \to \neg\psi) \to \neg\psi) \to \neg(\phi \to \neg\psi)\)}{\ref{7}，\ref{8}，MP}\label{10}
+    \ndl{}{\(\neg(\phi \to \neg\psi)\)}{\ref{5}，\ref{9}，MP}
+    \ndl{}{\(\phi \land \psi\)}{定义2.2.4}
+  \end{ND}
+\end{enumerate}
+
+\end{document}
+
+% Local Variables:
+% TeX-engine: luatex
+% End:

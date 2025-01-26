@@ -36,7 +36,7 @@ local function aki(wd, pr, km)
         (is_bj and {0, wd, 0, priority = {p, -p}} or
             {wd, 0, wd, priority = {p, -p}}) or
         (is_qj and {wd, 0, wd, priority = {p, -p}} or
-            {wd/2, 0, wd/2, priority = {p, -p}})
+            {wd/4, 0, wd/4, priority = {p, -p}})
 end
 
 luatexja.jfont.define_jfm {
@@ -55,7 +55,7 @@ luatexja.jfont.define_jfm {
         depth = is_vt and 0.5 or 0.12,
         italic = 0,
         glue = {
-            [1] = aki(0.25, -1),
+            [1] = aki(0.5, -1),
             [10] = aki(0.5, -1),
             [3] = aki(0.25, -1)
         },
@@ -131,8 +131,8 @@ luatexja.jfont.define_jfm {
         depth = is_vt and 0.5 or 0.12,
         italic = 0,
         glue = {
-            [0] = aki(0.25, -1),
-            [1] = aki(0.25, -1),
+            [0] = aki(0.5, -1),
+            [1] = aki(0.5, -1),
             [10] = aki(0.5, -1),
             [21] = {-0.1, 0, 0, priority = {-1, 1}},
             [3] = aki(0.25, -1),
@@ -173,7 +173,7 @@ luatexja.jfont.define_jfm {
         depth = is_vt and 0.5 or 0.12,
         italic = 0,
         glue = {
-            [0] = aki(is_qj and 0.5 or 0.25),
+            [0] = aki(0.5),
             [1] = aki(0.5),
             [10] = aki(0.5),
             [3] = aki(0.5),
@@ -193,7 +193,7 @@ luatexja.jfont.define_jfm {
         depth = is_vt and 0.5 or 0.12,
         italic = 0,
         glue = {
-            [0] = is_vt and (is_hc and aki(0.5) or {}) or aki(0.5),
+            [0] = is_vt and (is_hc and aki(0.5) or {}) or aki(is_qj and 0.5 or 1),
             [1] = is_vt and (is_hc and aki(0.5) or {}) or aki(0.5),
             [10] = is_vt and (is_hc and aki(0.5) or {}) or aki(0.5),
             [3] = is_vt and (is_hc and aki(0.5) or aki(0.25, 1)) or aki(0.5),
@@ -213,8 +213,8 @@ luatexja.jfont.define_jfm {
         depth = is_vt and 0.5 or 0.12,
         italic = 0,
         glue = {
-            [0] = aki(is_qj and 0.5 or 0.25),
-            [61] = aki(is_qj and 0.5 or 0.25),
+            [0] = aki(0.5),
+            [61] = aki(0.5),
             [1] = aki(0.5),
             [10] = aki(0.5),
             [3] = aki(0.5),
@@ -385,6 +385,7 @@ luatexja.jfont.define_jfm {
         -- box end
         chars = {'boxbdd', 'parbdd', 'glue'},
         glue = {
+            [1] = {-0.15, 0, 0, priority = {-1, 1}},
             [3] = aki(0.25, -1)
         }
     }

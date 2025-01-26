@@ -23,7 +23,7 @@
 % \DeclarePairedDelimiterX{\paren}[1]{\lparen}{\rparen}{%
 %   \renewcommand{\given}{\SetSymbol[\delimsize]}#1}
 \DeclarePairedDelimiterX{\brce}[1]{\lbrace}{\rbrace}{%
-  \newcommand{\given}{\SetSymbol[\delimsize]}#1}
+  \newcommand*{\given}{\SetSymbol[\delimsize]}#1}
 \usepackage{lualatex-math}
 
 \newif\ifadobe
@@ -31,15 +31,20 @@
 
 \ifadobe
 \setmainfont{Latin Modern Roman}[BoldFont=Adobe Heiti Std]
-\setCJKmainfont{Adobe Song Std}[BoldFont=Adobe Heiti Std]
+\setCJKmainfont{Adobe Song Std}[
+  BoldFont=Adobe Heiti Std,
+  ItalicFont=Adobe Kaiti Std
+]
 \else
 \setmainfont{Times New Roman}[BoldFont=Heiti SC,Ligatures=Rare]
-\setCJKmainfont{Songti SC}[BoldFont=Heiti SC]
-\usepackage[math-style=TeX]{unicode-math}
+\setCJKmainfont{Songti SC}[BoldFont=Heiti SC,ItalicFont=Kaiti SC]
+\usepackage[
+  math-style=TeX,
+  warnings-off={mathtools-colon,mathtools-overbracket}
+]{unicode-math}
 \setmathfont{Asana Math}
+% \setmathfont{STIX Two Math}[range="002C]
 \fi
-
-\ltjsetparameter{xkanjiskip=.13\zw plus 1pt minus 1pt}
 
 \newcommand*{\enumparen}[1]{\textnormal{（}\makebox[0.5em][c]{#1}\textnormal{）}}
 
@@ -54,6 +59,16 @@
 \makeatother
 
 \usepackage{float}
+\usepackage{graphicx}
+
+% \(a\vdash b\mathrel{\ooalign{$\vdash$\cr\hskip1pt\reflectbox{$\vdash$}}}c\)
+
+\AtBeginDocument{%
+  % \renewcommand{\perp}{\mathrel{\bot}}
+  \let\leq\leqslant
+  \let\le\leq
+  \let\geq\geqslant
+  \let\ge\geq}
 
 \begin{document}
 \maketitle
@@ -78,10 +93,10 @@
     \end{enumerate}
   \end{enumerate}
 \item[问题 2.3.8] \(16\)和\(2^n\)。
-\item[问题 2.3.12] 因为前面讨论的原子命题个数是有穷的（finite），而且现在讨论的情况是有可数无穷多个（countably infinite）原子命题。
-\item[问题 2.3.21]
+\item[习题 2.3.12] 因为前面讨论的原子命题个数是有穷的（finite），而且现在讨论的情况是有可数无穷多个（countably infinite）原子命题。
+\item[习题 2.3.21]
   \begin{enumerate}
-  \item[] 
+  \item[]
   \item 由下表可知，它是重言式。
     \begin{table}[H]
       \centering
@@ -111,16 +126,23 @@
       \end{tabular}
     \end{table}
   \end{enumerate}
-\item[问题 2.3.22] \(v(\neg p \land (q \to r)) = 0\)。
-\item[问题 2.3.23] 对于任意的赋值\(v\)，要么\(v(p) = 1\)，要么\(v(p) = 0\)。在前者的情况下，有\(v(\neg p) = 0\)，从而\(v(p \land \neg p) = 0\)。同理，在后者的情况下，也有\(v(p \land \neg p) = 0\)。所以它是矛盾式。\qed
-\item[问题 2.3.24]
+\item[习题 2.3.22] \(v(\neg p \land (q \to r)) = 0\)。
+\item[习题 2.3.23] 对于任意的赋值\(v\)，要么\(v(p) = 1\)，要么\(v(p) = 0\)。在前者的情况下，有\(v(\neg p) = 0\)，从而\(v(p \land \neg p) = 0\)。同理，在后者的情况下，也有\(v(p \land \neg p) = 0\)。所以它是矛盾式。\qed
+\item[习题 2.3.24]
   \begin{enumerate}
   \item[]
   \item 对于任意的赋值\(v\)，要么\(v(\phi) = 1\)，要么\(v(\phi) = 0\)。若是前者，则\(v(\psi \to \phi) = 1\)，自然有\(v(\phi \to \psi \to \phi) = 1\)。同理，若是后者，则直接有\(v(\phi \to \psi \to \phi) = 1\)。因此，它是重言式。\qed
   \item 对于任意的赋值\(v\)，要么\(v(\phi \to \theta) = 1\)，要么\(v(\phi \to \theta) = 0\)。若是前者，则有\(v((\phi \to \psi) \to (\phi \to \theta)) = 1\)，从而\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)。若是后者，则有\(v(\phi) = 1\)且\(v(\theta) = 0\)。此时，若\(v(\psi) = 1\)，则有\(v(\phi \to \psi \to \theta) = 0\)，从而\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)；若\(v(\psi) = 0\)，则有\(v(\phi \to \psi) = 0\)，从而有\(v((\phi \to \psi) \to (\phi \to \theta)) = 1\)和\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)。因此，它是重言式。\qed
   \item 对于任意的赋值\(v\)，要么\(v(\phi) = 1\)，要么\(v(\phi) = 0\)。若是前者，则自然有\(v((\neg\phi \to \neg\psi) \to \phi) = 1\)，从而\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)。若是后者，则\(v(\neg\phi) = 1\)。此时，若\(v(\psi) = 1\)，则\(v(\neg\psi) = 0\)，从而有\(v(\neg\phi \to \neg\psi) = 0\)、\(v((\neg\phi \to \neg\psi) \to \phi) = 1\)和\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)；若\(v(\psi) = 0\)，则\(v(\neg\phi \to \psi) = 0\)，从而\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)。因此，它是重言式。\qed
   \end{enumerate}
-\item[问题 2.3.25] 设\(v\)为任意满足\(v(\brce{p \to q, \neg p \to \neg q}) = 1\)的赋值函数。因为\(v(p \to q) = 1\)，所以\(v(p) = 0\)或者\(v(q) = 1\)。若\(v(p) = 0\)，则\(v(\neg p) = 1\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg q) = 1\)，从而有\(v(q) = 0\)和\(v(p \leftrightarrow q) = 1\)。若\(v(q) = 1\)，则\(v(\neg q) = 0\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg p) = 0\)，从而有\(v(p) = 1\)和\(v(p \leftrightarrow q) = 1\)。由\(v\)的任意性可得\(\brce{p \to q, \neg p \to \neg q} \models p \leftrightarrow q\)。\qed
+\item[习题 2.3.25] 设\(v\)为任意满足\(v(\brce{p \to q, \neg p \to \neg q}) = 1\)的赋值函数。因为\(v(p \to q) = 1\)，所以\(v(p) = 0\)或者\(v(q) = 1\)。若\(v(p) = 0\)，则\(v(\neg p) = 1\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg q) = 1\)，从而有\(v(q) = 0\)和\(v(p \leftrightarrow q) = 1\)。若\(v(q) = 1\)，则\(v(\neg q) = 0\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg p) = 0\)，从而有\(v(p) = 1\)和\(v(p \leftrightarrow q) = 1\)。由\(v\)的任意性可得\(\brce{p \to q, \neg p \to \neg q} \models p \leftrightarrow q\)。\qed
+\item[习题 2.4.7]
+  \begin{enumerate}
+  \item[]
+  \item 根据定义2.4.4中的\enumparen{1}即可得证。\qed
+  \item 因为\(\phi_1, \dotsc, \phi_n\)是一个证明，所以它满足定义2.4.4。那么，对于任意的\(1 \le j \le k \le n\)，也都有\(\phi_j\)满足定义2.4.4。因此，\(\phi_1, \dotsc, \phi_k\)也是一个证明。\qed
+  \end{enumerate}
+\item[问题 2.4.13] 证明可以看成以\(\emptyset\)为假设的一个演绎。
 \end{description}
 
 \end{document}
