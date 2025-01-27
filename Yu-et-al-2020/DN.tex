@@ -1,0 +1,98 @@
+\documentclass[a4paper,punct=custom/kaiming,fontset=none]{ctexart}
+
+\newcommand*{\titleContent}{双重否定的演绎}
+
+\title{\bfseries\titleContent}
+
+\usepackage{mathtools,amssymb,amsthm}
+\usepackage{lualatex-math}
+
+\setmainfont{Times New Roman}[BoldFont=Heiti SC,Ligatures=Rare]
+\setCJKmainfont{Songti SC}[BoldFont=Heiti SC,ItalicFont=Kaiti SC]
+\usepackage[
+  math-style=TeX,
+  warnings-off={mathtools-colon,mathtools-overbracket}
+]{unicode-math}
+\setmathfont{Asana Math}
+% \setmathfont{STIX Two Math}[range="002C]
+
+\newcommand*{\enumparen}[1]{\textnormal{（}\makebox[0.5em][c]{#1}\textnormal{）}}
+
+% https://www.logicmatters.net/resources/nd3.sty
+% https://www.logicmatters.net/resources/pdfs/nd-manual2a.pdf
+\usepackage{nd3}
+
+\usepackage{xcolor}
+\usepackage[
+  pdfusetitle,
+  hyperfootnotes=false,
+  colorlinks=true,
+  urlcolor={[rgb]{0,.2,.6}},
+  linkcolor={[rgb]{0,.2,.6}}
+]{hyperref}
+
+\makeatletter
+\newcommand*{\theH@NDlines}{\theHenumi.\number\value{@NDlines}}
+\newtheoremstyle{remark}{3pt}{3pt}{}{}{\itshape}{\ignorespaces}{\thm@headsep}{}
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  % \item[]\ignorespaces
+  \item[\hskip\labelsep
+    \itshape
+    #1%
+    % \@addpunct{\hskip6.5pt}%
+    ]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 2em%
+  \begin{center}%
+    \let \footnote \thanks
+    {\LARGE \@title \par}%
+  \end{center}%
+  \par
+  \vskip 1.5em}
+\makeatother
+
+\theoremstyle{remark}
+\newtheorem*{remark}{评论}
+
+\AtBeginDocument{%
+  % \renewcommand{\perp}{\mathrel{\bot}}
+  \let\oldref\ref
+  \let\proves\vdash
+  \let\leq\leqslant
+  \let\le\leq
+  \let\geq\geqslant
+  \let\ge\geq}
+
+\begin{document}
+\maketitle
+
+\noindent \(\neg\neg\phi \proves \phi\)
+\begin{proof}
+  \leavevmode
+  \begin{ND}[][dn]
+    \ndl{}{\(\neg\phi \to \neg\phi\)}{示例2.4.8}\label{1}
+    \ndl{}{\((\neg\phi \to \neg\phi) \to (\neg\phi \to \neg\neg\phi) \to \phi\)}{\(\rm P_3\)}\label{2}
+    \ndl{}{\(\neg\neg\phi\)}{假设}\label{3}
+    \ndl{}{\(\neg\neg\phi \to \neg\phi \to \neg\neg\phi\)}{\(\rm P_1\)}\label{4}
+    \ndl{}{\(\neg\phi \to \neg\neg\phi\)}{\ref{3}，\ref{4}，MP}\label{5}
+    \ndl{}{\((\neg\phi \to \neg\neg\phi) \to \phi\)}{\ref{1}，\ref{2}，MP}\label{6}
+    \ndl{}{\(\phi\)}{\ref{5}，\ref{6}，MP}
+  \end{ND}
+\end{proof}
+\begin{remark}
+  上述的\ndref{dn}{4}和\ndref{dn}{5}可以合并成一行，原因列就写“\enumparen{\ndref{dn}{3}}，示例2.4.18”。
+\end{remark}
+
+\end{document}
+
+% Local Variables:
+% TeX-engine: luatex
+% End:
