@@ -1,5 +1,4 @@
 \newcommand*{\titleContent}{与《数理逻辑》相配套的一些证明和演绎}
-\newcommand*{\authorContent}{赵磊}
 \newif\ifbsixpaper
 % \bsixpapertrue
 \ifbsixpaper
@@ -12,6 +11,7 @@
 \title{\bfseries\titleContent}
 \fi
 
+\newcommand*{\authorContent}{赵磊}
 \author{\authorContent}
 
 \usepackage{mathtools,amssymb,amsthm}
@@ -51,6 +51,7 @@
 % https://www.logicmatters.net/resources/nd3.sty
 % https://www.logicmatters.net/resources/pdfs/nd-manual2a.pdf
 \usepackage{nd3}
+\renewcommand*{\ndstretch}{.25}
 
 \usepackage{xcolor}
 \usepackage[
@@ -73,7 +74,8 @@
   \let\leq\leqslant
   \let\le\leq
   \let\geq\geqslant
-  \let\ge\geq}
+  \let\ge\geq
+}
 
 \begin{document}
 \maketitle
@@ -249,7 +251,7 @@
     \ndl{}{\(\phi \land \psi\)}{\ref{8}，定义2.2.4}
   \end{ND}
 \item \label{ded:exFalso} \(\phi,\ \neg\phi \proves \psi\)
-  \begin{ND}
+  \begin{ND}[][][][\rwidth{thm:trans}]
     \ndl{}{\(\phi\)}{假设}\label{1}
     \ndl{}{\(\neg\psi \to \phi\)}{\ref{1}，演绎\oldref{ded:axiom1}}\label{2}
     \ndl{}{\((\neg\psi \to \phi) \to (\neg\psi \to \neg\phi) \to \psi\)}{\(\rm P_3\)}\label{3}
@@ -260,7 +262,13 @@
   \end{ND}
 \item \label{thm:exFalso} \(\proves \phi \to \neg\phi \to \psi\)
   \begin{ND}
-    \ndl{}{}{}
+    \ndl{}{\(\phi \to (\neg\psi \to \phi)\)}{\(\rm P_1\)}\label{1}
+    \ndl{}{\((\neg\psi \to \phi) \to (\neg\psi \to \neg\phi) \to \psi\)}{\(\rm P_3\)}\label{2}
+    \ndl{}{\(\phi \to (\neg\psi \to \neg\phi) \to \psi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
+    \ndl{}{\(\neg\phi \to (\neg\psi \to \neg\phi)\)}{\(\rm P_1\)}\label{4}
+    \ndl{}{\((\neg\psi \to \neg\phi) \to \phi \to \psi\)}{\ref{3}，演绎\oldref{ded:comm}}\label{5}
+    \ndl{}{\(\neg\phi \to \phi \to \psi\)}{\ref{4}，\ref{5}，演绎\oldref{ded:trans}}\label{6}
+    \ndl{}{\(\phi \to \neg\phi \to \psi\)}{\ref{6}，演绎\oldref{ded:comm}}
   \end{ND}
 \item \label{ded:wedgeOut} \(\phi \land \psi \proves \phi\)
   \begin{ND}

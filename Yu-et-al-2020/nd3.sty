@@ -4,7 +4,8 @@
 
 
 
-%%%%%counters, lengths etc.
+%%%%% counters, lengths etc.
+\newcommand*{\ndstretch}{\baselinestretch}
 \newcounter{@NDnumber}
 \newcounter{@NDlw}
 \newcounter{@NDrw}
@@ -68,7 +69,7 @@
 \def\@NDtempc{\csname @NDlw\@NDident\endcsname}%
 \setlength\@NDsep{\topsep+2\partopsep}\setlength\@NDsepe{\topsep+2\partopsep}%
 \setlength\@NDlident{\linewidth - \@NDol}
-\begin{list}{}{\setlength\parindent{0pt}\setlength\@NDtempz{\baselinestretch\baselineskip}\setlength\parsep{.3\@NDtempz}\setlength\leftmargin{.5\@NDlident}\setlength\rightmargin{\leftmargin}}\item[]\ifnum\the@NDtit = 1\textbf{#1}\penalty10000\fi\setlength\@NDboxwidth{\@NDol-\@NDrulewidth-\@NDtempc-3\@NDitemsep}\ignorespaces}%
+\begin{list}{}{\setlength\parindent{0pt}\setlength\@NDtempz{\ndstretch\baselineskip}\setlength\parsep{.3\@NDtempz}\setlength\leftmargin{.5\@NDlident}\setlength\rightmargin{\leftmargin}}\item[]\ifnum\the@NDtit = 1\textbf{#1}\penalty10000\fi\setlength\@NDboxwidth{\@NDol-\@NDrulewidth-\@NDtempc-3\@NDitemsep}\ignorespaces}%
 {\unskip\ifnum\the@NDlw = 1 \@NDwriteout{l}{\the\@NDlwin}\else\@NDwriteout{l}{\the\@NDlwf}\fi%
 \ifnum\the@NDrw = 1 \@NDwriteout{r}{\the\@NDrwin}\else\@NDwriteout{r}{\the\@NDrwf}\fi%\setlength\parsep{.5\topsep plus .25\topsep minus .125\topsep}
 \end{list}}
