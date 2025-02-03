@@ -1,0 +1,120 @@
+\newif\ifbsixpaper
+\bsixpapertrue
+\ifbsixpaper
+\documentclass{article}
+\usepackage[
+  b6paper,
+  paperheight=7.367in,
+  hmargin=.4in,
+  top=.55in,
+  bottom=.5in,
+  headsep=1.5ex,
+  footskip=3ex
+]{geometry}
+\else
+\documentclass[a4paper]{article}
+\usepackage[hmargin=1.5in,vmargin=1in]{geometry}
+\fi
+
+\newcommand*{\titleContent}{Solutions to Exercises from Fitch's Symbolic Logic}
+\title{\bfseries\titleContent}
+\author{Leei F. Jaw}
+
+\usepackage{enumitem}
+\setlist[enumerate,1]{label=\thesection.\arabic*.,ref=\thesection.\arabic*}
+
+% https://www.logicmatters.net/resources/fitch.sty
+% https://www.logicmatters.net/resources/fitchguide.txt
+\usepackage{fitch}
+\setlength{\fitchnumwd}{2pt}
+% \setlength{\fitchindent}{0pt}
+
+\usepackage{xcolor,graphicx}
+\usepackage[
+  pdfusetitle,
+  hyperfootnotes=false,
+  colorlinks=true,
+  urlcolor={.},
+  linkcolor={.}
+]{hyperref}
+
+\renewcommand*{\neg}{\mathord{\sim}}
+
+\begin{document}
+\maketitle
+
+\setcounter{section}{3}
+\section{Formal Proofs}
+
+\leavevmode
+
+\textbf{4.20.}
+\begin{fitch}
+  \fb \(p \supset q\) & hyp \\
+  \fj \(q \supset r\) & hyp \\
+  \fa \([q \supset r] \supset [p \supset [q \supset r]]\) & ax cond rep \\
+  \fa \(p \supset [q \supset r]\) & 2, 3, m p \\
+  \fa \([p \supset q] \supset [p \supset r]\) & 4, dist \\
+  \fa \(p \supset r\) & 1, 4, m p
+\end{fitch}
+
+\textbf{4.21.}
+\begin{fitch}
+  \fb \(p \supset q\) & hyp \\
+  \fj \(q \supset r\) & hyp \\
+  \fa \([p \supset q] \supset [p \supset r]\) & 2, 4.14 \\
+  \fa \(p \supset r\) & 1, 3, m p
+\end{fitch}
+
+\subsection*{Exercises}
+
+\begin{enumerate}
+\item \label{ex:4.1}
+  \begin{fitch}
+    \fb \(q \supset q\) & refl imp \\
+    \fa \(p \supset [q \supset q]\) & 1, 4.13
+  \end{fitch}
+\item
+  \begin{fitch}
+    \fb \(s \supset [r \supset r]\) & Ex \ref{ex:4.1} \\
+    \fa \([s \supset p] \supset [s \supset [r \supset r]]\) & 1, 4.13
+  \end{fitch}
+\item
+  \begin{fitch}
+    \fh \(p\) & hyp \\
+    \fa \(r \supset p\) & 1, 4.13 \\
+    \fa \(p \supset [r \supset p]\) & 2, 4.13 \\
+  \end{fitch}
+\item
+  \begin{fitch}
+    \fb \(q\) & hyp \\
+    \fj \(p \supset [q \supset r]\) & hyp \\
+    \fa \(p \supset q\) & 1, 4.13 \\
+    \fa \([p \supset q] \supset [p \supset r]\) & 2, dist \\
+    \fa \(p \supset r\) & 3, 4, m p
+  \end{fitch}
+\item
+  \begin{fitch}
+    \fh \(s \supset p\) & hyp \\
+    \fa \(p \supset [r \supset p]\) & ax cond rep \\
+    % \fa \(s \supset [p \supset [r \supset p]]\) & 2, 4.13 \\
+    \fa \([s \supset p] \supset [s \supset [r \supset p]]\) & 2, 4.14 \\
+    \fa \(s \supset [r \supset p]\) & 1, 3, m p
+  \end{fitch}
+\item
+  \begin{fitch}
+    \fh \(p \supset [p \supset q]\) & hyp \\
+    \fa \(p \supset p\) & refl imp \\
+    \fa \([p \supset p] \supset [p \supset q]\) & 1, dist \\
+    \fa \(p \supset q\) & 2, 3, m p
+  \end{fitch}
+\item
+  \begin{fitch}
+    \fh \(p \supset [q \supset r]\) & hyp \\
+    \fa \(q \supset [p \supset q]\) & ax cond rep \\
+    \fa \([p \supset q] \supset [p \supset r]\) & 1, dist \\
+    \fa \(q \supset [p \supset r]\) & 2, 3, trans imp
+  \end{fitch}
+\end{enumerate}
+
+\end{document}
