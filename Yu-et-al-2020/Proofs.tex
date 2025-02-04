@@ -64,7 +64,7 @@
 ]{hyperref}
 
 \makeatletter
-\newcommand*{\theH@NDlines}{\theHenumi.\number\value{@NDlines}}
+\newcommand*{\theH@NDlines}{\@NDident.\number\value{@NDlines}}
 \makeatother
 
 \AtBeginDocument{%
@@ -82,7 +82,7 @@
 
 \begin{enumerate}
 \item \label{thm:iden} \(\proves \phi \to \phi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi \to (\phi \to \phi) \to \phi\)}{\(\rm P_1\)}\label{1}
     \ndl{}{\((\phi \to (\phi \to \phi) \to \phi) \to (\phi \to \phi \to \phi) \to (\phi \to \phi)\)}{\(\rm P_2\)}\label{2}
     \ndl{}{\(\phi \to \phi \to \phi\)}{\(\rm P_1\)}\label{3}
@@ -90,19 +90,19 @@
     \ndl{}{\(\phi \to \phi\)}{\ref{3}，\ref{4}，MP}
   \end{ND}
 \item \label{thm:abcb} \(\proves \phi \to \psi \to \theta \to \psi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\psi \to \theta \to \psi\)}{\(\rm P_1\)}\label{1}
     \ndl{}{\((\psi \to \theta \to \psi) \to \phi \to (\psi \to \theta \to \psi)\)}{\(\rm P_1\)}\label{2}
     \ndl{}{\(\phi \to \psi \to \theta \to \psi\)}{\ref{1}，\ref{2}，MP}
   \end{ND}
 \item \label{ded:axiom1} \(\phi \proves \psi \to \phi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi\)}{假设}\label{1}
     \ndl{}{\(\phi \to \psi \to \phi\)}{\(\rm P_1\)}\label{2}
     \ndl{}{\(\psi \to \phi\)}{\ref{1}，\ref{2}，MP}
   \end{ND}
 \item \label{ded:axiom2} \(\phi \to \psi \to \theta,\ \psi \proves \phi \to \theta\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi \to \psi \to \theta\)}{假设}\label{1}
     \ndl{}{\((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\(\rm P_2\)}\label{2}
     \ndl{}{\(\psi\)}{假设}\label{3}
@@ -111,7 +111,7 @@
     \ndl{}{\(\phi \to \theta\)}{\ref{4}，\ref{5}，MP}
   \end{ND}
 \item \label{ded:axiom2add} \(\phi \to \theta \proves \phi \to \psi \to \theta\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi \to \theta \to \psi \to \theta\)}{证明\oldref{thm:abcb}}\label{1}
     \ndl{}{\((\phi \to \theta \to \psi \to \theta) \to (\phi \to \theta) \to (\phi \to \psi \to \theta)\)}{\(\rm P_1\)}\label{2}
     \ndl{}{\(\phi \to \theta\)}{假设}\label{3}
@@ -119,7 +119,7 @@
     \ndl{}{\(\phi \to \psi \to \theta\)}{\ref{3}，\ref{4}，MP}
   \end{ND}
 \item \label{ded:comm} \(\phi \to \psi \to \theta \proves \psi \to \phi \to \theta\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi \to \psi \to \theta\)}{假设}\label{1}
     \ndl{}{\((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\(\rm P_2\)}\label{2}
     \ndl{}{\((\phi \to \psi) \to (\phi \to \theta)\)}{\ref{1}，\ref{2}，MP}\label{3}
@@ -130,7 +130,7 @@
     \ndl{}{\(\psi \to \phi \to \theta\)}{\ref{6}，\ref{7}，MP}
   \end{ND}
 \item \label{ded:trans} \(\phi \to \psi,\ \psi \to \theta \proves \phi \to \theta\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\psi \to \theta\)}{假设}\label{1}
     \ndl{}{\((\psi \to \theta) \to \phi \to (\psi \to \theta)\)}{\(\rm P_1\)}\label{2}
     \ndl{}{\(\phi \to \psi \to \theta\)}{\ref{1}，\ref{2}，MP}\label{3}
@@ -140,48 +140,47 @@
     \ndl{}{\(\phi \to \theta\)}{\ref{5}，\ref{6}，MP}
   \end{ND}
 \item \label{thm:trans} \(\proves (\phi \to \psi) \to (\psi \to \theta) \to (\phi \to \theta)\)
-  \begin{ND}[][thm:trans]
+  \begin{ND}[][thm:trans][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\((\psi \to \theta) \to \phi \to (\psi \to \theta)\)}{\(\rm P_1\)}\label{1}
     \ndl{}{\((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\(\rm P_2\)}\label{2}
     \ndl{}{\((\psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
     \ndl{}{\((\phi \to \psi) \to (\psi \to \theta) \to (\phi \to \theta)\)}{\ref{3}，演绎\oldref{ded:comm}}
   \end{ND}
 \item \label{ded:mp} \(\phi,\ \phi \to \psi \proves \psi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi\)}{假设}\label{1}
     \ndl{}{\(\phi \to \psi\)}{假设}\label{2}
     \ndl{}{\(\psi\)}{\ref{1}，\ref{2}，MP}
   \end{ND}
 \item \label{thm:mpAux} \(\proves ((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\((\phi \to \psi) \to (\phi \to \psi)\)}{证明\oldref{thm:iden}}\label{1}
     \ndl{}{\(((\phi \to \psi) \to \phi \to \psi) \to ((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)}{\(\rm P_2\)}\label{2}
     \ndl{}{\(((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)}{\ref{1}，\ref{2}，MP}
   \end{ND}
 \item \label{ded:mp1} \(\phi \proves (\phi \to \psi) \to \psi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi\)}{假设}\label{1}
     \ndl{}{\((\phi \to \psi) \to \phi\)}{\ref{1}，演绎\oldref{ded:axiom1}}\label{2}
     \ndl{}{\(((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)}{证明\oldref{thm:mpAux}}\label{3}
     \ndl{}{\((\phi \to \psi) \to \psi\)}{\ref{2}，\ref{3}，MP}
   \end{ND}
 \item \label{thm:mp} \(\proves \phi \to (\phi \to \psi) \to \psi\)
-  \begin{ND}
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi \to (\phi \to \psi) \to \phi\)}{\(\rm P_1\)}\label{1}
     \ndl{}{\(((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)}{证明\oldref{thm:mpAux}}\label{2}
     \ndl{}{\(\phi \to (\phi \to \psi) \to \psi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}
   \end{ND}
 \item \label{ded:axiom3alt} \(\neg\phi \to \neg\psi \proves \psi \to \phi\)
-  \begin{ND}
-    \ndl{}{\((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi\)}{\(\rm P_3\)}\label{1}
-    \ndl{}{\(\neg\phi \to \neg\psi\)}{假设}\label{2}
-    \ndl{}{\((\neg\phi \to \neg\psi) \to (\neg\phi \to \psi) \to \phi\)}{\ref{1}，演绎\oldref{ded:comm}}\label{3}
-    \ndl{}{\(\psi \to (\neg\phi \to \psi)\)}{\(\rm P_1\)}\label{4}
-    \ndl{}{\((\neg\phi \to \psi) \to \phi\)}{\ref{2},\ref{3}，MP}\label{5}
-    \ndl{}{\(\psi \to \phi\)}{\ref{4}，\ref{5}，演绎\oldref{ded:trans}}
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\neg\phi \to \neg\psi\)}{假设}\label{1}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to (\neg\phi \to \psi) \to \phi\)}{\(\rm P_3\)，演绎\oldref{ded:comm}}\label{2}
+    \ndl{}{\(\psi \to (\neg\phi \to \psi)\)}{\(\rm P_1\)}\label{3}
+    \ndl{}{\((\neg\phi \to \psi) \to \phi\)}{\ref{1}，\ref{2}，MP}\label{4}
+    \ndl{}{\(\psi \to \phi\)}{\ref{3}，\ref{4}，演绎\oldref{ded:trans}}
   \end{ND}
 \item \label{thm:axiom3alt} \(\proves (\neg\phi \to \neg\psi) \to (\psi \to \phi)\)
-  \begin{ND}
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\((\neg\phi \to \neg\psi) \to (\neg\phi \to \psi) \to \phi\)}{\(\rm P_3\)，演绎\oldref{ded:comm}}\label{1}
     \ndl{}{\((\neg\phi \to \neg\psi) \to \psi \to (\neg\phi \to \psi) \to \phi\)}{\ref{1}，演绎\oldref{ded:axiom2add}}\label{2}
     \ndl{}{\((\psi \to (\neg\phi \to \psi) \to \phi) \to (\psi \to \neg\phi \to \psi) \to (\psi \to \phi)\)}{\(\rm P_2\)}\label{3}
@@ -189,17 +188,24 @@
     \ndl{}{\(\psi \to \neg\phi \to \psi\)}{\(\rm P_1\)}\label{5}
     \ndl{}{\((\neg\phi \to \neg\psi) \to (\psi \to \phi)\)}{\ref{4}，\ref{5}，演绎\oldref{ded:axiom2}}
   \end{ND}
+  或者
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\psi \to (\neg\phi \to \psi)\)}{\(\rm P_1\)}\label{1}
+    \ndl{}{\((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi\)}{\(\rm P_3\)}\label{2}
+    \ndl{}{\(\psi \to (\neg\phi \to \neg\psi) \to \phi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to (\psi \to \phi)\)}{\ref{3}，演绎\oldref{ded:comm}}
+  \end{ND}
 \item \label{ded:dnOut} \(\neg\neg\phi \proves \phi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
-    \ndl{}{\(\neg\phi \to \neg\phi\)}{证明\oldref{thm:iden}}\label{1}
-    \ndl{}{\((\neg\phi \to \neg\phi) \to (\neg\phi \to \neg\neg\phi) \to \phi\)}{\(\rm P_3\)}\label{2}
-    \ndl{}{\(\neg\neg\phi\)}{假设}\label{3}
-    \ndl{}{\(\neg\phi \to \neg\neg\phi\)}{\ref{3}，演绎\oldref{ded:axiom1}}\label{4}
-    \ndl{}{\((\neg\phi \to \neg\neg\phi) \to \phi\)}{\ref{1}，\ref{2}，MP}\label{5}
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\neg\neg\phi\)}{假设}\label{1}
+    \ndl{}{\(\neg\phi \to \neg\phi\)}{证明\oldref{thm:iden}}\label{2}
+    \ndl{}{\((\neg\phi \to \neg\phi) \to (\neg\phi \to \neg\neg\phi) \to \phi\)}{\(\rm P_3\)}\label{3}
+    \ndl{}{\(\neg\phi \to \neg\neg\phi\)}{\ref{1}，演绎\oldref{ded:axiom1}}\label{4}
+    \ndl{}{\((\neg\phi \to \neg\neg\phi) \to \phi\)}{\ref{2}，\ref{3}，MP}\label{5}
     \ndl{}{\(\phi\)}{\ref{4}，\ref{5}，MP}
   \end{ND}
 \item \label{thm:dnOut} \(\proves \neg\neg\phi \to \phi\)
-  \begin{ND}
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\neg\phi \to \neg\phi\)}{证明\oldref{thm:iden}}\label{1}
     \ndl{}{\((\neg\phi \to \neg\phi) \to (\neg\phi \to \neg\neg\phi) \to \phi\)}{\(\rm P_3\)}\label{2}
     \ndl{}{\(\neg\neg\phi \to (\neg\phi \to \neg\neg\phi)\)}{\(\rm P_1\)}\label{3}
@@ -207,13 +213,19 @@
     \ndl{}{\(\neg\neg\phi \to \phi\)}{\ref{3}，\ref{4}，演绎\oldref{ded:trans}}
   \end{ND}
 \item \label{thm:dnInAnte} \(\proves (\phi \to \psi) \to (\neg\neg\phi \to \psi)\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\neg\neg\phi \to \phi\)}{证明\oldref{thm:dnOut}}\label{1}
     \ndl{}{\((\neg\neg\phi \to \phi) \to (\phi \to \psi) \to (\neg\neg\phi \to \psi)\)}{证明\oldref{thm:trans}}\label{2}
     \ndl{}{\((\phi \to \psi) \to (\neg\neg\phi \to \psi)\)}{\ref{1}，\ref{2}，MP}
   \end{ND}
+\item \label{ded:dnInAnte} \(\phi \to \psi \proves \neg\neg\phi \to \psi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \to \psi\)}{假设}\label{1}
+    \ndl{}{\((\phi \to \psi) \to (\neg\neg\phi \to \psi)\)}{证明\oldref{thm:dnInAnte}}\label{2}
+    \ndl{}{\(\neg\neg\phi \to \psi\)}{\ref{1}，\ref{2}，MP}
+  \end{ND}
 \item \label{thm:axiom3in} \(\proves (\phi \to \psi) \to (\phi \to \neg\psi) \to \neg\phi\)
-  \begin{ND}
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\((\phi \to \neg\psi) \to (\neg\neg\phi \to \neg\psi)\)}{证明\oldref{thm:dnInAnte}}\label{1}
     \ndl{}{\((\neg\neg\phi \to \neg\psi) \to (\neg\neg\phi \to \psi) \to \neg\phi\)}{\(\rm P_3\)，演绎\oldref{ded:comm}}\label{2}
     \ndl{}{\((\phi \to \neg\psi) \to (\neg\neg\phi \to \psi) \to \neg\phi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
@@ -222,7 +234,7 @@
     \ndl{}{\((\phi \to \psi) \to (\phi \to \neg\psi) \to \neg\phi\)}{\ref{4}，\ref{5}，MP}
   \end{ND}
 \item \label{ded:dnIn} \(\phi \proves \neg\neg\phi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi\)}{假设}\label{1}
     \ndl{}{\(\neg\phi \to \phi\)}{\ref{1}，演绎\oldref{ded:axiom1}}\label{2}
     \ndl{}{\((\neg\phi \to \phi) \to (\neg\phi \to \neg\phi) \to \neg\neg\phi\)}{证明\oldref{thm:axiom3in}}\label{3}
@@ -231,15 +243,28 @@
     \ndl{}{\(\neg\neg\phi\)}{\ref{4}，\ref{5}，MP}
   \end{ND}
 \item \label{thm:dnIn} \(\proves \phi \to \neg\neg\phi\)
-  \begin{ND}
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi \to (\neg\phi \to \phi)\)}{\(\rm P_1\)}\label{1}
     \ndl{}{\((\neg\phi \to \phi) \to (\neg\phi \to \neg\phi) \to \neg\neg\phi\)}{证明\oldref{thm:axiom3in}}\label{2}
     \ndl{}{\(\phi \to (\neg\phi \to \neg\phi) \to \neg\neg\phi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
     \ndl{}{\(\neg\phi \to \neg\phi\)}{证明\oldref{thm:iden}}\label{4}
     \ndl{}{\(\phi \to \neg\neg\phi\)}{\ref{3}，\ref{4}，演绎\oldref{ded:axiom2}}
   \end{ND}
+\item \label{thm:dnInConseq} \(\proves (\phi \to \psi) \to (\phi \to \neg\neg\psi)\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\psi \to \neg\neg\psi\)}{证明\oldref{thm:dnIn}}\label{1}
+    \ndl{}{\(\phi \to \psi \to \neg\neg\psi\)}{演绎\oldref{ded:axiom1}}\label{2}
+    \ndl{}{\((\phi \to \psi \to \neg\neg\psi) \to (\phi \to \psi) \to (\phi \to \neg\neg\psi)\)}{\(\rm P_2\)}\label{3}
+    \ndl{}{\((\phi \to \psi) \to (\phi \to \neg\neg\psi)\)}{\ref{2}，\ref{3}，MP}
+  \end{ND}
+\item \label{ded:dnInConseq} \(\phi \to \psi \proves \phi \to \neg\neg\psi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \to \psi\)}{假设}\label{1}
+    \ndl{}{\((\phi \to \psi) \to (\phi \to \neg\neg\psi)\)}{证明\oldref{thm:dnInConseq}}\label{2}
+    \ndl{}{\(\phi \to \neg\neg\psi\)}{\ref{1}，\ref{2}，MP}
+  \end{ND}
 \item \label{ded:wedgeIn} \(\phi,\ \psi \proves \phi \land \psi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\psi\)}{假设}\label{1}
     \ndl{}{\(((\phi \to \neg\psi) \to \psi)\)}{\ref{1}，演绎\oldref{ded:axiom1}}\label{2}
     \ndl{}{\(((\phi \to \neg\psi) \to \psi) \to ((\phi \to \neg\psi) \to \neg\psi) \to \neg(\phi \to \neg\psi)\)}{证明\oldref{thm:axiom3in}}\label{3}
@@ -251,7 +276,7 @@
     \ndl{}{\(\phi \land \psi\)}{\ref{8}，定义2.2.4}
   \end{ND}
 \item \label{ded:exFalso} \(\phi,\ \neg\phi \proves \psi\)
-  \begin{ND}[][][][\rwidth{thm:trans}]
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi\)}{假设}\label{1}
     \ndl{}{\(\neg\psi \to \phi\)}{\ref{1}，演绎\oldref{ded:axiom1}}\label{2}
     \ndl{}{\((\neg\psi \to \phi) \to (\neg\psi \to \neg\phi) \to \psi\)}{\(\rm P_3\)}\label{3}
@@ -261,7 +286,7 @@
     \ndl{}{\(\psi\)}{\ref{5}，\ref{6}，MP}
   \end{ND}
 \item \label{thm:exFalso} \(\proves \phi \to \neg\phi \to \psi\)
-  \begin{ND}
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\phi \to (\neg\psi \to \phi)\)}{\(\rm P_1\)}\label{1}
     \ndl{}{\((\neg\psi \to \phi) \to (\neg\psi \to \neg\phi) \to \psi\)}{\(\rm P_3\)}\label{2}
     \ndl{}{\(\phi \to (\neg\psi \to \neg\phi) \to \psi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
@@ -270,9 +295,86 @@
     \ndl{}{\(\neg\phi \to \phi \to \psi\)}{\ref{4}，\ref{5}，演绎\oldref{ded:trans}}\label{6}
     \ndl{}{\(\phi \to \neg\phi \to \psi\)}{\ref{6}，演绎\oldref{ded:comm}}
   \end{ND}
-\item \label{ded:wedgeOut} \(\phi \land \psi \proves \phi\)
-  \begin{ND}
-    \ndl{}{}{}
+\item \label{ded:wedgeOutRight} \(\phi \land \psi \proves \psi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \land \psi\)}{假设}\label{1}
+    \ndl{}{\(\neg(\phi \to \neg\psi)\)}{\ref{1}，定义2.2.4}\label{2}
+    \ndl{}{\(\neg\psi \to (\phi \to \neg\psi)\)}{\(\rm P_1\)}\label{3}
+    \ndl{}{\((\neg\psi \to (\phi \to \neg\psi)) \to (\neg\psi \to \neg(\phi \to \neg\psi)) \to \psi\)}{\(\rm P_3\)}\label{4}
+    \ndl{}{\(\neg\psi \to \neg(\phi \to \neg\psi)\)}{\ref{2}，演绎\oldref{ded:axiom1}}\label{5}
+    \ndl{}{\((\neg\psi \to \neg(\phi \to \neg\psi)) \to \psi\)}{\ref{3}，\ref{4}，MP}\label{6}
+    \ndl{}{\(\psi\)}{\ref{5}，\ref{6}，MP}
+  \end{ND}
+\item \label{ded:wedgeOutLeft} \(\phi \land \psi \proves \phi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \land \psi\)}{假设}\label{1}
+    \ndl{}{\(\neg(\phi \to \neg\psi)\)}{\ref{1}，定义2.2.4}\label{2}
+    \ndl{}{\(\phi \to \neg\phi \to \neg\psi\)}{证明\oldref{thm:exFalso}}\label{3}
+    \ndl{}{\(\neg\phi \to (\phi \to \neg\psi)\)}{\ref{3}，演绎\oldref{ded:comm}}\label{4}
+    \ndl{}{\((\neg\phi \to (\phi \to \neg\psi)) \to (\neg\phi \to \neg(\phi \to \neg\psi)) \to \phi\)}{\(\rm P_3\)}\label{5}
+    \ndl{}{\(\neg\phi \to \neg(\phi \to \neg\psi)\)}{\ref{2}，演绎\oldref{ded:axiom1}}\label{6}
+    \ndl{}{\((\neg\phi \to \neg(\phi \to \neg\psi)) \to \phi\)}{\ref{4}，\ref{5}，MP}\label{7}
+    \ndl{}{\(\phi\)}{\ref{6}，\ref{7}，MP}
+  \end{ND}
+\item \label{ded:wedgeComm} \(\phi \land \psi \proves \psi \land \phi\)
+  \begin{ND}[][ded:wedgeComm1]
+    \ndl{}{\(\phi \land \psi\)}{假设}\label{1}
+    \ndl{}{\(\psi\)}{\ref{1}，演绎\oldref{ded:wedgeOutRight}}\label{2}
+    \ndl{}{\(\phi\)}{\ref{1}，演绎\oldref{ded:wedgeOutLeft}}\label{3}
+    \ndl{}{\(\psi \land \phi\)}{\ref{2}，\ref{3}，演绎\oldref{ded:wedgeIn}}
+  \end{ND}
+  或者
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \land \psi\)}{假设}\label{1}
+    \ndl{}{\(\neg(\phi \to \neg\psi)\)}{\ref{1}，定义2.2.4}\label{2}
+    \ndl{}{\((\psi \to \neg\phi) \to (\neg\neg\psi \to \neg\phi)\)}{证明\oldref{thm:dnInAnte}}\label{3}
+    \ndl{}{\((\neg\neg\psi \to \neg\phi) \to (\phi \to \neg\psi)\)}{证明\oldref{thm:axiom3alt}}\label{4}
+    \ndl{}{\((\psi \to \neg\phi) \to (\phi \to \neg\psi)\)}{\ref{3}，\ref{4}，演绎\oldref{ded:trans}}\label{5}
+    \ndl{}{\(((\psi \to \neg\phi) \to (\phi \to \neg\psi))
+      \to ((\psi \to \neg\phi) \to \neg(\phi \to \neg\psi))
+      \to \neg(\psi \to \neg\phi)\)}{证明\oldref{thm:axiom3in}}\label{6}
+    \ndl{}{\((\psi \to \neg\phi) \to \neg(\phi \to \neg\psi)\)}{\ref{2}，演绎\oldref{ded:axiom1}}\label{7}
+    \ndl{}{\(((\psi \to \neg\phi) \to \neg(\phi \to \neg\psi))
+      \to \neg(\psi \to \neg\phi)\)}{\ref{5}，\ref{6}，MP}\label{8}
+    \ndl{}{\(\neg(\psi \to \neg\phi)\)}{\ref{7}，\ref{8}，MP}\label{9}
+    \ndl{}{\(\psi \land \phi\)}{\ref{9}，定义2.2.4}
+  \end{ND}
+\item \label{ded:veeInRight} \(\phi \proves \phi \lor \psi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi\)}{假设}\label{1}
+    \ndl{}{\(\phi \to \neg\phi \to \psi\)}{证明\oldref{thm:exFalso}}\label{2}
+    \ndl{}{\(\neg\phi \to \psi\)}{\ref{1}，\ref{2}，MP}\label{3}
+    \ndl{}{\(\phi \lor \psi\)}{\ref{3}，定义2.2.4}
+  \end{ND}
+\item \label{ded:veeComm} \(\phi \lor \psi \proves \psi \lor \phi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \lor \psi\)}{假设}\label{1}
+    \ndl{}{\(\neg\phi \to \psi\)}{\ref{1}，定义2.2.4}\label{2}
+    \ndl{}{\(\neg\phi \to \neg\neg\psi\)}{\ref{2}，演绎\oldref{ded:dnInConseq}}\label{3}
+    \ndl{}{\((\neg\phi \to \neg\neg\psi) \to (\neg\psi \to \phi)\)}{证明\oldref{thm:axiom3alt}}\label{4}
+    \ndl{}{\(\neg\psi \to \phi\)}{\ref{3}，\ref{4}，MP}\label{5}
+    \ndl{}{\(\psi \lor \phi\)}{\ref{5}，定义2.2.4}
+  \end{ND}
+\item \label{ded:veeInLeft} \(\phi \proves \psi \lor \phi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi\)}{假设}\label{1}
+    \ndl{}{\(\phi \lor \psi\)}{\ref{1}，演绎\oldref{ded:veeInRight}}\label{2}
+    \ndl{}{\(\psi \lor \phi\)}{\ref{2}，演绎\oldref{ded:veeComm}}
+  \end{ND}
+\item \label{ded:veeOutRight} \(\phi \lor \psi, \neg\phi \proves \psi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \lor \psi\)}{假设}\label{1}
+    \ndl{}{\(\neg\phi\)}{假设}\label{2}
+    \ndl{}{\(\neg\phi \to \psi\)}{\ref{1}，定义2.2.4}\label{3}
+    \ndl{}{\(\psi\)}{\ref{2}，\ref{3}，MP}
+  \end{ND}
+\item \label{ded:veeOutLeft} \(\phi \lor \psi, \neg\psi \proves \phi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \lor \psi\)}{假设}\label{1}
+    \ndl{}{\(\neg\psi\)}{假设}\label{2}
+    \ndl{}{\(\psi \lor \phi\)}{\ref{1}，演绎\oldref{ded:veeComm}}\label{3}
+    \ndl{}{\(\neg\psi \to \phi\)}{\ref{3}，定义2.2.4}\label{4}
+    \ndl{}{\(\psi\)}{\ref{2}，\ref{4}，MP}
   \end{ND}
 \end{enumerate}
 
