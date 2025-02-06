@@ -33,7 +33,7 @@
 ]{hyperref}
 
 \makeatletter
-\newcommand*{\theH@NDlines}{\theHenumi.\number\value{@NDlines}}
+\newcommand*{\theH@NDlines}{\@NDident.\number\value{@NDlines}}
 \newtheoremstyle{remark}{3pt}{3pt}{}{}{\itshape}{\ignorespaces}{\thm@headsep}{}
 \renewenvironment{proof}[1][\proofname]{\par
   \pushQED{\qed}%
@@ -79,17 +79,17 @@
 \begin{proof}
   \leavevmode
   \begin{ND}[][dn]
-    \ndl{}{\(\neg\phi \to \neg\phi\)}{示例2.4.8}\label{1}
-    \ndl{}{\((\neg\phi \to \neg\phi) \to (\neg\phi \to \neg\neg\phi) \to \phi\)}{\(\rm P_3\)}\label{2}
-    \ndl{}{\(\neg\neg\phi\)}{假设}\label{3}
+    \ndl{}{\(\neg\neg\phi\)}{假设}\label{1}
+    \ndl{}{\(\neg\phi \to \neg\phi\)}{示例2.4.8}\label{2}
+    \ndl{}{\((\neg\phi \to \neg\phi) \to (\neg\phi \to \neg\neg\phi) \to \phi\)}{\(\rm P_3\)}\label{3}
     \ndl{}{\(\neg\neg\phi \to \neg\phi \to \neg\neg\phi\)}{\(\rm P_1\)}\label{4}
-    \ndl{}{\(\neg\phi \to \neg\neg\phi\)}{\ref{3}，\ref{4}，MP}\label{5}
-    \ndl{}{\((\neg\phi \to \neg\neg\phi) \to \phi\)}{\ref{1}，\ref{2}，MP}\label{6}
+    \ndl{}{\(\neg\phi \to \neg\neg\phi\)}{\ref{1}，\ref{4}，MP}\label{5}
+    \ndl{}{\((\neg\phi \to \neg\neg\phi) \to \phi\)}{\ref{2}，\ref{3}，MP}\label{6}
     \ndl{}{\(\phi\)}{\ref{5}，\ref{6}，MP}
   \end{ND}
 \end{proof}
 \begin{remark}
-  上述的\ndref{dn}{4}和\ndref{dn}{5}可以合并成一行，原因列就写“\enumparen{\ndref{dn}{3}}，示例2.4.18”。
+  上述的第\ndref{dn}{4}、\ndref{dn}{5}步可以合并成一步，原因列就写“\enumparen{\ndref{dn}{1}}，示例2.4.18”。
 \end{remark}
 
 \end{document}

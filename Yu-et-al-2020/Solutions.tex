@@ -24,6 +24,8 @@
 %   \renewcommand{\given}{\SetSymbol[\delimsize]}#1}
 \DeclarePairedDelimiterX{\brce}[1]{\lbrace}{\rbrace}{%
   \newcommand*{\given}{\SetSymbol[\delimsize]}#1}
+\DeclarePairedDelimiterXPP{\Set}[1]{\mathop{}}{\lbrace}{\rbrace}{}{%
+  \newcommand{\given}{\SetSymbol[\delimsize]}#1}
 \usepackage{lualatex-math}
 
 \newif\ifadobe
@@ -52,23 +54,67 @@
 \setlist[enumerate,1]{label=\enumparen{\arabic*}}
 \setlist[enumerate,2]{label=\enumparen{\alph*}}
 
+\usepackage{float}
+
+% https://www.logicmatters.net/resources/nd3.sty
+% https://www.logicmatters.net/resources/pdfs/nd-manual2a.pdf
+\usepackage{nd3}
+\renewcommand*{\ndstretch}{.25}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[
+  pdftitle={\titleContent},
+  pdfauthor={\authorContent},
+  hyperfootnotes=false,
+  colorlinks=true,
+  urlcolor={.},
+  linkcolor={.}
+]{hyperref}
+
+\newcommand*{\vdashv}{\mathrel{\ooalign{$\vdash$\cr\hskip1pt\reflectbox{$\vdash$}}}}
+
 \makeatletter
 \def\hhline{%
   \noalign{\ifnum0=`}\fi\hrule \@height 2\arrayrulewidth \futurelet
    \reserved@a\@xhline}
+\newcommand*{\theH@NDlines}{\@NDident.\number\value{@NDlines}}
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  % \item[]\ignorespaces
+  \item[\hskip\labelsep
+    \bfseries
+    #1%
+    % \@addpunct{：}%
+    ]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+% \thm@notefont{\itshape}
+% \showthe\thm@notefont
+\newtheoremstyle{plain}{3pt}{3pt}{}{}{\bfseries}{}{\thm@headsep}{%
+  \thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+  \thmnote{ {\the\thm@notefont（#3）}}%
+  % \@ifnotempty{#3}{\thm@headsep=.75ex}
+}
+% \newtheoremstyle{remark}{3pt}{3pt}{}{}{\itshape}{}{\thm@headsep}{}
 \makeatother
 
-\usepackage{float}
-\usepackage{graphicx}
-
-% \(a\vdash b\mathrel{\ooalign{$\vdash$\cr\hskip1pt\reflectbox{$\vdash$}}}c\)
+\newtheorem{lemma}{引理}
+\newtheorem*{lemma*}{引理}
+% \theoremstyle{remark}
+% \newtheorem*{remark}{评注}
 
 \AtBeginDocument{%
   % \renewcommand{\perp}{\mathrel{\bot}}
+  \let\proves\vdash
   \let\leq\leqslant
   \let\le\leq
   \let\geq\geqslant
-  \let\ge\geq}
+  \let\ge\geq
+}
 
 \begin{document}
 \maketitle
@@ -135,7 +181,7 @@
   \item 对于任意的赋值\(v\)，要么\(v(\phi \to \theta) = 1\)，要么\(v(\phi \to \theta) = 0\)。若是前者，则有\(v((\phi \to \psi) \to (\phi \to \theta)) = 1\)，从而\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)。若是后者，则有\(v(\phi) = 1\)且\(v(\theta) = 0\)。此时，若\(v(\psi) = 1\)，则有\(v(\phi \to \psi \to \theta) = 0\)，从而\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)；若\(v(\psi) = 0\)，则有\(v(\phi \to \psi) = 0\)，从而有\(v((\phi \to \psi) \to (\phi \to \theta)) = 1\)和\(v((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)) = 1\)。因此，它是重言式。\qed
   \item 对于任意的赋值\(v\)，要么\(v(\phi) = 1\)，要么\(v(\phi) = 0\)。若是前者，则自然有\(v((\neg\phi \to \neg\psi) \to \phi) = 1\)，从而\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)。若是后者，则\(v(\neg\phi) = 1\)。此时，若\(v(\psi) = 1\)，则\(v(\neg\psi) = 0\)，从而有\(v(\neg\phi \to \neg\psi) = 0\)、\(v((\neg\phi \to \neg\psi) \to \phi) = 1\)和\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)；若\(v(\psi) = 0\)，则\(v(\neg\phi \to \psi) = 0\)，从而\(v((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi) = 1\)。因此，它是重言式。\qed
   \end{enumerate}
-\item[习题 2.3.25] 设\(v\)为任意满足\(v(\brce{p \to q, \neg p \to \neg q}) = 1\)的赋值函数。因为\(v(p \to q) = 1\)，所以\(v(p) = 0\)或者\(v(q) = 1\)。若\(v(p) = 0\)，则\(v(\neg p) = 1\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg q) = 1\)，从而有\(v(q) = 0\)和\(v(p \leftrightarrow q) = 1\)。若\(v(q) = 1\)，则\(v(\neg q) = 0\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg p) = 0\)，从而有\(v(p) = 1\)和\(v(p \leftrightarrow q) = 1\)。由\(v\)的任意性可得\(\brce{p \to q, \neg p \to \neg q} \models p \leftrightarrow q\)。\qed
+\item[习题 2.3.25] 设\(v\)为任意满足\(v(\Set{p \to q, \neg p \to \neg q}) = 1\)的赋值函数。因为\(v(p \to q) = 1\)，所以\(v(p) = 0\)或者\(v(q) = 1\)。若\(v(p) = 0\)，则\(v(\neg p) = 1\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg q) = 1\)，从而有\(v(q) = 0\)和\(v(p \leftrightarrow q) = 1\)。若\(v(q) = 1\)，则\(v(\neg q) = 0\)。又因为\(v(\neg p \to \neg q) = 1\)，所以有\(v(\neg p) = 0\)，从而有\(v(p) = 1\)和\(v(p \leftrightarrow q) = 1\)。由\(v\)的任意性可得\(\Set{p \to q, \neg p \to \neg q} \models p \leftrightarrow q\)。\qed
 \item[习题 2.4.7]
   \begin{enumerate}
   \item[]
@@ -143,6 +189,200 @@
   \item 因为\(\phi_1, \dotsc, \phi_n\)是一个证明，所以它满足定义2.4.4。那么，对于任意的\(1 \le j \le k \le n\)，也都有\(\phi_j\)满足定义2.4.4。因此，\(\phi_1, \dotsc, \phi_k\)也是一个证明。\qed
   \end{enumerate}
 \item[问题 2.4.13] 证明可以看成以\(\emptyset\)为假设的一个演绎。
+\item[定理 2.4.21]
+  \begin{lemma*}
+    \label{lem:dnElim}
+    \(\proves \neg\neg\phi \to \phi\)\hfill（双重否定消去引理）
+    \begin{proof}
+      \leavevmode
+      \begin{ND}
+        \ndl{}{\(\neg\phi \to \neg\phi\)}{示例2.4.8}\label{1}
+        \ndl{}{\((\neg\phi \to \neg\phi) \to (\neg\phi \to \neg\neg\phi) \to \phi\)}{\(\rm P_3\)}\label{2}
+        \ndl{}{\(\neg\neg\phi \to (\neg\phi \to \neg\neg\phi)\)}{\(\rm P_1\)}\label{3}
+        \ndl{}{\((\neg\phi \to \neg\neg\phi) \to \phi\)}{\ref{1}，\ref{2}，MP}\label{4}
+        \ndl{}{\(\neg\neg\phi \to \phi\)}{\ref{3}，\ref{4}，示例2.4.19}
+      \end{ND}
+    \end{proof}
+  \end{lemma*}
+  \begin{lemma*}
+    \label{lem:mp}
+    \(\proves \phi \to (\phi \to \psi) \to \psi\)\hfill（分离引理）
+    \begin{proof}
+      \leavevmode
+      \begin{ND}
+        \ndl{}{\((\phi \to \psi) \to (\phi \to \psi)\)}{示例2.4.8}\label{1}
+        \ndl{}{\(((\phi \to \psi) \to (\phi \to \psi)) \to ((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)}{\(\rm P_2\)}\label{2}
+        \ndl{}{\(\phi \to ((\phi \to \psi) \to \phi)\)}{\(\rm P_1\)}\label{3}
+        \ndl{}{\(((\phi \to \psi) \to \phi) \to ((\phi \to \psi) \to \psi)\)}{\ref{1}，\ref{2}，MP}\label{4}
+        \ndl{}{\(\phi \to (\phi \to \psi) \to \psi\)}{\ref{3}，\ref{4}，示例2.4.19}
+      \end{ND}
+    \end{proof}
+  \end{lemma*}
+  \begin{lemma*}
+    \label{ded:comm}
+    \(\phi \to \psi \to \theta \proves \psi \to \phi \to \theta\)\hfill（交换演绎）
+    \begin{proof}
+      \leavevmode
+      \begin{ND}
+        \ndl{}{\(\phi \to \psi \to \theta\)}{假设}\label{1}
+        \ndl{}{\((\phi \to \psi \to \theta) \to (\phi \to \psi) \to (\phi \to \theta)\)}{\(\rm P_2\)}\label{2}
+        \ndl{}{\(\psi \to (\phi \to \psi)\)}{\(\rm P_1\)}\label{3}
+        \ndl{}{\((\phi \to \psi) \to (\phi \to \theta)\)}{\ref{1}，\ref{2}，MP}\label{4}
+        \ndl{}{\(\psi \to \phi \to \theta\)}{\ref{3}，\ref{4}，示例2.4.19}
+      \end{ND}
+    \end{proof}
+  \end{lemma*}
+  \begin{lemma*}
+    \label{lem:exFalso}
+    \(\proves \phi \to \neg\phi \to \psi\)\hfill（爆炸原理）
+    \begin{proof}
+      \leavevmode
+      \begin{ND}
+        \ndl{}{\(\phi \to (\neg\psi \to \phi)\)}{\(\rm P_1\)}\label{1}
+        \ndl{}{\((\neg\psi \to \phi) \to (\neg\psi \to \neg\phi) \to \psi\)}{\(\rm P_3\)}\label{2}
+        \ndl{}{\(\phi \to (\neg\psi \to \neg\phi) \to \psi\)}{\ref{1}，\ref{2}，示例2.4.19}\label{3}
+        \ndl{}{\(\neg\phi \to (\neg\psi \to \neg\phi)\)}{\(\rm P_1\)}\label{4}
+        \ndl{}{\((\neg\psi \to \neg\phi) \to \phi \to \psi\)}{\ref{3}，\hyperref[ded:comm]{交换演绎}}\label{5}
+        \ndl{}{\(\neg\phi \to \phi \to \psi\)}{\ref{4}，\ref{5}，示例2.4.19}\label{6}
+        \ndl{}{\(\phi \to \neg\phi \to \psi\)}{\ref{6}，\hyperref[ded:comm]{交换演绎}}
+      \end{ND}
+    \end{proof}
+  \end{lemma*}
+  \begin{lemma*}
+    \label{lem:contrapose}
+    \(\proves (\neg\phi \to \neg\psi) \to (\psi \to \phi)\)\hfill（假言易位引理）
+    \begin{proof}
+      \leavevmode
+      \begin{ND}
+        \ndl{}{\(\psi \to (\neg\phi \to \psi)\)}{\(\rm P_1\)}\label{1}
+        \ndl{}{\((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi\)}{\(\rm P_3\)}\label{2}
+        \ndl{}{\(\psi \to (\neg\phi \to \neg\psi) \to \phi\)}{\ref{1}，\ref{2}，示例2.4.19}\label{3}
+        \ndl{}{\((\neg\phi \to \neg\psi) \to (\psi \to \phi)\)}{\ref{3}，\hyperref[ded:comm]{交换演绎}}
+      \end{ND}
+    \end{proof}
+  \end{lemma*}
+  \begin{enumerate}
+  \item
+      \(\phi \proves \neg\neg\phi\)\hfill（双重否定引入）
+      \begin{proof}
+        \leavevmode
+        \begin{ND}
+          \ndl{}{\(\phi\)}{假设}\label{1}
+          \ndl{}{\(\neg\neg\neg\phi \to \phi\)}{\ref{1}，示例2.4.18}\label{2}
+          \ndl{}{\((\neg\neg\neg\phi \to \phi)
+            \to (\neg\neg\neg\phi \to \neg\phi) \to \neg\neg\phi\)}{\(\rm P_3\)}\label{3}
+          \ndl{}{\(\neg\neg\neg\phi \to \neg\phi\)}{\hyperref[lem:dnElim]{双重否定消去引理}}\label{4}
+          \ndl{}{\((\neg\neg\neg\phi \to \neg\phi)
+            \to \neg\neg\phi\)}{\ref{2}，\ref{3}，MP}\label{5}
+          \ndl{}{\(\neg\neg\phi\)}{\ref{4}，\ref{5}，MP}
+        \end{ND}
+      \end{proof}
+      \(\neg\neg\phi \proves \phi\)\hfill（双重否定消去）
+      \begin{proof}
+        \leavevmode
+        \begin{ND}
+          \ndl{}{\(\neg\neg\phi\)}{假设}\label{1}
+          \ndl{}{\(\neg\neg\phi \to \phi\)}{\hyperref[lem:dnElim]{双重否定消去引理}}\label{2}
+          \ndl{}{\(\phi\)}{\ref{1}，\ref{2}，MP}
+        \end{ND}
+      \end{proof}
+    \item 分别见示例2.4.18和2.4.17。
+    \item \(\Set{\phi, \psi} \proves \phi \land \psi\)\hfill（合取引入）
+      \begin{proof}
+        \leavevmode
+        \begin{ND}
+          \ndl{}{\(\phi\)}{假设}\label{1}
+          \ndl{}{\(\psi\)}{假设}\label{2}
+          \ndl{}{\(\neg\neg(\phi \to \neg\psi) \to \psi\)}{\ref{2}，示例2.4.18}\label{3}
+          \ndl{}{\((\neg\neg(\phi \to \neg\psi) \to \psi)
+            \to (\neg\neg(\phi \to \neg\psi) \to \neg\psi)
+            \to \neg(\phi \to \neg\psi)\)}{\(\rm P_3\)}\label{4}
+          \ndl{}{\(\neg\neg(\phi \to \neg\psi) \to (\phi \to \neg\psi)\)}{%
+            \hyperref[lem:dnElim]{双重否定消去引理}}\label{5}
+          \ndl{}{\((\neg\neg(\phi \to \neg\psi) \to (\phi \to \neg\psi))
+            \to (\neg\neg(\phi \to \neg\psi) \to \phi)
+            \to (\neg\neg(\phi \to \neg\psi) \to \neg\psi)\)}{%
+            \(\rm P_2\)}\label{6}
+          \ndl{}{\(\neg\neg(\phi \to \neg\psi) \to \phi\)}{%
+            \ref{1}，示例2.4.18}\label{7}
+          \ndl{}{\((\neg\neg(\phi \to \neg\psi) \to \phi)
+            \to (\neg\neg(\phi \to \neg\psi) \to \neg\psi)\)}{%
+            \ref{5}，\ref{6}，MP}\label{8}
+          \ndl{}{\(\neg\neg(\phi \to \neg\psi) \to \neg\psi\)}{%
+            \ref{7}，\ref{8}，MP}\label{9}
+          \ndl{}{\((\neg\neg(\phi \to \neg\psi) \to \neg\psi)
+            \to \neg(\phi \to \neg\psi)\)}{\ref{3}，\ref{4}，MP}\label{10}
+          \ndl{}{\(\neg(\phi \to \neg\psi)\)}{\ref{9}，\ref{10}，MP}\label{11}
+          \ndl{}{\(\phi \land \psi\)}{\ref{11}，定义2.2.4}
+        \end{ND}
+      \end{proof}
+      \(\phi \land \psi \proves \phi\)\hfill（合取消去）
+      \begin{proof}
+        \leavevmode
+        \begin{ND}[][ded:disjElim]
+          \ndl{}{\(\phi \land \psi\)}{假设}\label{1}
+          \ndl{}{\(\neg(\phi \to \neg\psi)\)}{\ref{1}，定义2.2.4}\label{2}
+          % \ndl{}{\(\neg\psi \to (\phi \to \neg\psi)\)}{\(\rm P_1\)}\label{3}
+          % \ndl{}{\((\neg\psi \to (\phi \to \neg\psi))
+          %   \to (\neg\psi \to \neg(\phi \to \neg\psi))
+          %   \to \psi\)}{\(\rm P_3\)}\label{4}
+          % \ndl{}{\(\neg\psi \to \neg(\phi \to \neg\psi)\)}{\ref{2}，示例2.4.18}\label{5}
+          % \ndl{}{\((\neg\psi \to \neg(\phi \to \neg\psi))
+          %   \to \psi\)}{\ref{3}，\ref{4}，MP}\label{6}
+          % \ndl{}{\(\psi\)}{\ref{5}，\ref{6}，MP}\label{7}
+          \ndl{}{\(\neg\phi \to (\phi \to \neg\psi)\)}{\hyperref[lem:exFalso]{爆炸原理}，\hyperref[ded:comm]{交换演绎}}\label{8}
+          \ndl{}{\((\neg\phi \to (\phi \to \neg\psi))
+            \to (\neg\phi \to \neg(\phi \to \neg\psi))
+            \to \phi\)}{\(\rm P_3\)}\label{9}
+          \ndl{}{\(\neg\phi \to \neg(\phi \to \neg\psi)\)}{\ref{2}，示例2.4.18}\label{10}
+          \ndl{}{\((\neg\phi \to \neg(\phi \to \neg\psi)) \to \phi\)}{\ref{8}，\ref{9}，MP}\label{11}
+          \ndl{}{\(\phi\)}{\ref{10}，\ref{11}，MP}\label{12}
+        \end{ND}
+      \end{proof}
+    \item \(\phi \proves \phi \lor \psi\)\hfill（析取引入）
+      \begin{proof}
+        \leavevmode
+        \begin{ND}
+          \ndl{}{\(\phi\)}{假设}\label{1}
+          \ndl{}{\(\phi \to \neg\phi \to \psi\)}{\hyperref[lem:exFalso]{爆炸原理}}\label{2}
+          \ndl{}{\(\neg\phi \to \psi\)}{\ref{1}，\ref{2}，MP}\label{3}
+          \ndl{}{\(\phi \lor \psi\)}{\ref{3}，定义2.2.4}
+        \end{ND}
+      \end{proof}
+      \(\Set{\phi \lor \psi, \phi \to \theta, \psi \to \theta} \proves \theta\)\hfill（析取消去）
+      \begin{proof}
+        \leavevmode
+        \begin{ND}
+          d
+        \end{ND}
+      \end{proof}
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item 
+    \item \(\phi \to \psi \vdashv \neg\psi \to \neg\phi\)\hfill（假言易位1）
+      \begin{proof}
+        先证\(\neg\psi \to \neg\phi \proves \phi \to \psi\)，如下。
+        \begin{ND}
+          \ndl{}{\(\neg\psi \to \neg\phi\)}{假设}\label{1}
+          \ndl{}{\((\neg\psi \to \neg\phi) \to (\phi \to \psi)\)}{\hyperref[lem:contrapose]{假言易位引理}}\label{2}
+          \ndl{}{\(\phi \to \psi\)}{\ref{1}，\ref{2}，MP}
+        \end{ND}
+        再证\(\phi \to \psi \proves \neg\psi \to \neg\phi\)，如下。
+        \begin{ND}
+          \ndl{}{}{}
+        \end{ND}
+      \end{proof}
+    \item 
+    \end{enumerate}
 \end{description}
 
 \end{document}
