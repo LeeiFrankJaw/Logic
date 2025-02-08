@@ -3,7 +3,7 @@
 % \bsixpapertrue
 \ifbsixpaper
 \documentclass[punct=custom/kaiming,fontset=none]{ctexart}
-\usepackage[b6paper,hmargin=.4in,vmargin=.3in]{geometry}
+\usepackage[b6paper,landscape,hmargin=.4in,vmargin=.3in]{geometry}
 \title{\Large\bfseries\titleContent}
 \else
 \documentclass[a4paper,punct=custom/kaiming,fontset=none]{ctexart}
@@ -204,6 +204,22 @@
     \ndl{}{\(\psi \to (\neg\phi \to \neg\psi) \to \phi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
     \ndl{}{\((\neg\phi \to \neg\psi) \to (\psi \to \phi)\)}{\ref{3}，演绎\oldref{ded:comm}}
   \end{ND}
+\item \label{ded:axiom3alt2} \(\neg\phi \to \psi \proves \neg\psi \to \phi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\neg\phi \to \psi\)}{假设}\label{1}
+    \ndl{}{\((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi\)}{\(\rm P_3\)}\label{2}
+    \ndl{}{\(\neg\psi \to (\neg\phi \to \neg\psi)\)}{\(\rm P_1\)}\label{3}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to \phi\)}{\ref{1}，\ref{2}，MP}\label{4}
+    \ndl{}{\(\neg\psi \to \phi\)}{\ref{3}，\ref{4}，演绎\oldref{ded:trans}}
+  \end{ND}
+\item \label{thm:axiom3alt2} \(\proves (\neg\phi \to \psi) \to (\neg\psi \to \phi)\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\neg\psi \to (\neg\phi \to \neg\psi)\)}{\(\rm P_1\)}\label{1}
+    \ndl{}{\((\neg\phi \to \psi) \to (\neg\phi \to \neg\psi) \to \phi\)}{\(\rm P_3\)}\label{2}
+    \ndl{}{\((\neg\phi \to \neg\psi) \to (\neg\phi \to \psi) \to \phi\)}{\ref{2}，演绎\oldref{ded:comm}}\label{3}
+    \ndl{}{\(\neg\psi \to (\neg\phi \to \psi) \to \phi\)}{\ref{1}，\ref{3}，演绎\oldref{ded:trans}}\label{4}
+    \ndl{}{\((\neg\phi \to \psi) \to (\neg\psi \to \phi)\)}{\ref{4}，演绎\oldref{ded:comm}}
+  \end{ND}
 \item \label{ded:dnOut} \(\neg\neg\phi \proves \phi\)
   \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
     \ndl{}{\(\neg\neg\phi\)}{假设}\label{1}
@@ -241,6 +257,28 @@
     \ndl{}{\((\phi \to \psi) \to (\neg\neg\phi \to \psi)\)}{证明\oldref{thm:dnInAnte}}\label{4}
     \ndl{}{\((\neg\neg\phi \to \psi) \to (\phi \to \neg\psi) \to \neg\phi\)}{\ref{3}，演绎\oldref{ded:comm}}\label{5}
     \ndl{}{\((\phi \to \psi) \to (\phi \to \neg\psi) \to \neg\phi\)}{\ref{4}，\ref{5}，MP}
+  \end{ND}
+\item \label{ded:axiom3altInv} \(\phi \to \psi \proves \neg\psi \to \neg\phi\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \to \psi\)}{假设}\label{1}
+    \ndl{}{\((\phi \to \psi) \to (\phi \to \neg\psi) \to \neg\phi\)}{证明\oldref{thm:axiom3in}}\label{2}
+    \ndl{}{\(\neg\psi \to (\phi \to \neg\psi)\)}{\(\rm P_1\)}\label{3}
+    \ndl{}{\((\phi \to \neg\psi) \to \neg\phi\)}{\ref{1}，\ref{2}，MP}\label{4}
+    \ndl{}{\(\neg\psi \to \neg\phi\)}{\ref{3}，\ref{4}，演绎\oldref{ded:trans}}
+  \end{ND}
+\item \label{thm:axiom3altInv} \(\proves (\phi \to \psi) \to (\neg\psi \to \neg\phi)\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\neg\psi \to (\phi \to \neg\psi)\)}{\(\rm P_1\)}\label{1}
+    \ndl{}{\((\phi \to \neg\psi) \to (\phi \to \psi) \to \neg\phi\)}{证明\oldref{thm:axiom3in}，演绎\oldref{ded:comm}}\label{2}
+    \ndl{}{\(\neg\psi \to (\phi \to \psi) \to \neg\phi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
+    \ndl{}{\((\phi \to \psi) \to (\neg\psi \to \neg\phi)\)}{\ref{3}，演绎\oldref{ded:comm}}
+  \end{ND}
+\item \label{thm:axiom3alt3} \(\proves (\phi \to \neg\psi) \to (\psi \to \neg\phi)\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\psi \to (\phi \to \psi)\)}{\(\rm P_1\)}\label{1}
+    \ndl{}{\((\phi \to \psi) \to (\phi \to \neg\psi) \to \neg\phi\)}{证明\oldref{thm:axiom3in}}\label{2}
+    \ndl{}{\(\psi \to (\phi \to \neg\psi) \to \neg\phi\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
+    \ndl{}{\((\phi \to \neg\psi) \to (\psi \to \neg\phi)\)}{\ref{3}，演绎\oldref{ded:comm}}
   \end{ND}
 \item \label{ded:dnIn} \(\phi \proves \neg\neg\phi\)
   \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
@@ -286,7 +324,7 @@
   \end{ND}
 \item \label{thm:wedgeIn} \(\proves \phi \to \psi \to \phi \land \psi\)
   \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
-    \ndl{}{\(\psi \to ((\phi \to \neg\psi) \to \psi)\)}{\ref{1}，演绎\oldref{ded:axiom1}}\label{1}
+    \ndl{}{\(\psi \to ((\phi \to \neg\psi) \to \psi)\)}{\(\rm P_1\)}\label{1}
     \ndl{}{\(((\phi \to \neg\psi) \to \psi) \to ((\phi \to \neg\psi) \to \neg\psi) \to \neg(\phi \to \neg\psi)\)}{证明\oldref{thm:axiom3in}}\label{2}
     \ndl{}{\(\psi \to ((\phi \to \neg\psi) \to \neg\psi) \to \neg(\phi \to \neg\psi)\)}{\ref{1}，\ref{2}，演绎\oldref{ded:trans}}\label{3}
     \ndl{}{\(\phi \to (\phi \to \neg\psi) \to \neg\psi\)}{证明\oldref{thm:mp}}\label{4}
@@ -433,6 +471,22 @@
     \ndl{}{\(\psi \to \theta \to \psi \land \theta\)}{证明\oldref{thm:wedgeIn}}\label{3}
     \ndl{}{\(\phi \to \theta \to \psi \land \theta\)}{\ref{1}，\ref{3}，演绎\oldref{ded:trans}}\label{4}
     \ndl{}{\(\phi \to \psi \land \theta\)}{\ref{2}，\ref{4}，演绎\oldref{ded:condMp}}
+  \end{ND}
+\item \label{ded:wAnte} \(\phi \to \theta,\ \psi \to \theta \proves \phi \lor \psi \to \theta\)
+  \begin{ND}[][][][\rwidth{ded:wedgeComm1}]
+    \ndl{}{\(\phi \to \theta\)}{假设}\label{1}
+    \ndl{}{\(\psi \to \theta\)}{假设}\label{2}
+    \ndl{}{\(\neg\theta \to \neg\psi\)}{\ref{2}，演绎\oldref{ded:axiom3altInv}}\label{3}
+    \ndl{}{\((\neg\theta \to \neg\psi) \to (\neg\theta \to \psi) \to \theta\)}{\(\rm P_3\)，演绎\oldref{ded:comm}}\label{4}
+    \ndl{}{\((\phi \to \theta) \to (\neg\psi \to \phi) \to (\neg\psi \to \theta)\)}{证明\oldref{thm:trans}，演绎\oldref{ded:comm}}\label{5}
+    \ndl{}{\((\neg\phi \to \psi) \to (\neg\psi \to \phi)\)}{证明\oldref{thm:axiom3alt2}}\label{6}
+    \ndl{}{\((\neg\psi \to \phi) \to (\neg\psi \to \theta)\)}{\ref{1}，\ref{5}，MP}\label{7}
+    \ndl{}{\((\neg\phi \to \psi) \to (\neg\psi \to \theta)\)}{\ref{6}，\ref{7}，演绎\oldref{ded:trans}}\label{8}
+    \ndl{}{\((\neg\psi \to \theta) \to (\neg\theta \to \psi)\)}{证明\oldref{thm:axiom3alt2}}\label{9}
+    \ndl{}{\((\neg\phi \to \psi) \to (\neg\theta \to \psi)\)}{\ref{8}，\ref{9}，演绎\oldref{ded:trans}}\label{10}
+    \ndl{}{\((\neg\theta \to \psi) \to \theta\)}{\ref{3}，\ref{4}，MP}\label{11}
+    \ndl{}{\((\neg\phi \to \psi) \to \theta\)}{\ref{10}，\ref{11}，演绎\oldref{ded:trans}}\label{12}
+    \ndl{}{\(\phi \lor \psi \to \theta\)}{\ref{12}，定义2.2.4}
   \end{ND}
 \end{enumerate}
 

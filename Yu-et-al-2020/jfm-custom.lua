@@ -11,6 +11,7 @@ if luatexja.jfont.jfm_feature then
     is_km = luatexja.jfont.jfm_feature.kaiming
     is_hc = luatexja.jfont.jfm_feature.hwcl
     is_fz = luatexja.jfont.jfm_feature.fzpr
+    is_otf = luatexja.jfont.jfm_feature.otf
 end
 
 if is_hc then
@@ -168,12 +169,12 @@ luatexja.jfont.define_jfm {
         align = 'left',
         left = 0,
         down = 0,
-        width = 0.5,
+        width = is_vt and is_qj and 1 or 0.5,
         height = is_vt and 0.5 or 0.88,
         depth = is_vt and 0.5 or 0.12,
         italic = 0,
         glue = {
-            [0] = aki(0.5),
+            [0] = is_vt and is_qj and {} or aki(0.5),
             [1] = aki(0.5),
             [10] = aki(0.5),
             [3] = aki(0.5),
@@ -183,11 +184,10 @@ luatexja.jfont.define_jfm {
         }
     },
     [22] = {
-        -- 冒号、分号
-        chars = {'：', '；'},
+        chars = {'：'},
         align = 'left',
         left = 0,
-        down = 0,
+        down = is_vt and is_qj and is_otf and 0.5 or 0,
         width = is_vt and (is_hc and 0.5 or 1) or 0.5,
         height = is_vt and 0.5 or 0.88,
         depth = is_vt and 0.5 or 0.12,
@@ -223,6 +223,25 @@ luatexja.jfont.define_jfm {
             [52] = aki(0.5)
         }
     },
+    [24] = {
+        chars = {'；'},
+        align = 'left',
+        left = 0,
+        down = is_vt and is_qj and is_otf and 0.5 or 0,
+        width = is_vt and (is_hc and 0.5 or 1) or 0.5,
+        height = is_vt and 0.5 or 0.88,
+        depth = is_vt and 0.5 or 0.12,
+        italic = 0,
+        glue = {
+            [0] = is_vt and (is_hc and aki(0.5) or {}) or aki(is_qj and 0.5 or 1),
+            [1] = is_vt and (is_hc and aki(0.5) or {}) or aki(0.5),
+            [10] = is_vt and (is_hc and aki(0.5) or {}) or aki(0.5),
+            [3] = is_vt and (is_hc and aki(0.5) or aki(0.25, 1)) or aki(0.5),
+            [5] = is_vt and (is_hc and aki(0.5) or {}) or aki(0.5),
+            [51] = is_vt and (is_hc and aki(0.5) or {}) or aki(0.5),
+            [52] = is_vt and (is_hc and aki(0.5) or {}) or aki(0.5)
+        }
+    },
     [3] = {
         -- 间隔号
         chars = {'・', '·'},
@@ -255,12 +274,12 @@ luatexja.jfont.define_jfm {
         align = 'left',
         left = 0,
         down = 0,
-        width = 0.5,
+        width = is_vt and is_qj and 1 or 0.5,
         height = is_vt and 0.5 or 0.88,
         depth = is_vt and 0.5 or 0.12,
         italic = 0,
         glue = {
-            [0] = aki(0.5, 1, true),
+            [0] = is_vt and is_qj and {} or aki(0.5, 1, true),
             [1] = aki(0.5, 1, true),
             [10] = aki(0.5, 1, true),
             [3] = aki(0.5, 1, true),
@@ -284,7 +303,7 @@ luatexja.jfont.define_jfm {
             [1] = is_vt and {} or aki(0.5, 1, true),
             [10] = is_vt and {} or aki(0.5, 1, true),
             [3] = is_vt and aki(0.25, -1) or aki(0.5, 1, true),
-            [5] = is_vt and {} or aki(0.5, 1, true),
+            [5] = aki(is_vt and 0.125 or 0.5, 1, true),
             [51] = is_vt and {} or aki(0.5, 1, true),
             [52] = is_vt and {} or aki(0.5, 1, true)
         }
@@ -379,13 +398,14 @@ luatexja.jfont.define_jfm {
         glue = {
            [21] = {-0.1, 0, 0, priority = {-1, 1}},
            [22] = {-0.1, 0, 0, priority = {-1, 1}},
+           [24] = {-0.1, 0, 0, priority = {-1, 1}},
         }
     },
     [6] = {
         -- box end
         chars = {'boxbdd', 'parbdd', 'glue'},
         glue = {
-            [1] = {-0.15, 0, 0, priority = {-1, 1}},
+            [1] = is_vt and {} or {-0.15, 0, 0, priority = {-1, 1}},
             [3] = aki(0.25, -1)
         }
     }
