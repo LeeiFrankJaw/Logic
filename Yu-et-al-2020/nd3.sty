@@ -5,6 +5,7 @@
 
 
 %%%%% counters, lengths etc.
+\newcommand*{\ndrulestretch}{\baselinestretch}
 \newcommand*{\ndstretch}{\baselinestretch}
 \newcounter{@NDnumber}
 \newcounter{@NDlw}
@@ -52,7 +53,7 @@
 {\refstepcounter{@NDnumber}\setcounter{@NDlines}{0}%
 \newcommand{\ndl}[3]{\settowidth\@NDlwtmp{\NDalist{##1}}\ifdim\@NDlwtmp > \@NDlwf \setlength\@NDlwf{\@NDlwtmp}\fi%
 \settowidth\@NDrwtmp{\widthofpbox{##3}}\ifdim\@NDrwtmp > \@NDrwf \setlength\@NDrwf{\@NDrwtmp}\fi%
-\par\@NDlabel{##1}\begin{minipage}[t]{\@NDboxwidth}##2\end{minipage}\@NDrules{##3}\par\addvspace{\parsep}}%
+\par\@NDlabel{##1}\begin{minipage}[t]{\@NDboxwidth}##2\end{minipage}\@NDrules{\renewcommand*{\baselinestretch}{\ndrulestretch}\selectfont\raggedright##3}\par\addvspace{\parsep}}%
 \def\@NDtempa{#3}\def\@NDtempb{}\ifx\@NDtempa\@NDtempb\setcounter{@NDlw}{0}\setlength\@NDlwin{2em}\else\setcounter{@NDlw}{1}\setlength\@NDlwin{#3}\fi%
 \def\@NDtempa{#4}\ifx\@NDtempa\@NDtempb\setcounter{@NDrw}{0}\setlength\@NDrwin{2cm}\else\setcounter{@NDrw}{1}\setlength\@NDrwin{#4}\fi%
 \def\@NDtempa{#1}\ifx\@NDtempa\@NDtempb\setcounter{@NDtit}{0}\else\setcounter{@NDtit}{1}\fi%
