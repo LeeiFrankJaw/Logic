@@ -75,6 +75,7 @@
 ]{hyperref}
 
 \newcommand*{\vdashv}{\mathrel{\ooalign{$\vdash$\cr\hskip1pt\reflectbox{$\vdash$}}}}
+\newcommand*{\siand}{\shortintertext{和}}
 
 \makeatletter
 \def\hhline{%
@@ -136,7 +137,7 @@
     \end{enumerate}
   \item 简化公式：
     \begin{enumerate}
-    \item 题有问题，多一个左括号，或者少一个右括号。假设是后者，就有\(p \wedge q \to r\)；
+    \item 根据勘误表，此处少一个右括号，简化后可得\(p \wedge q \to r\)；
     \item \(p \to q\)；
     \item \((r \to p \to q) \to s\)。
     \end{enumerate}
@@ -624,7 +625,7 @@
       %   \ndl{}{\(\phi\)}{\ref{5}，\ref{6}，MP}
       % \end{ND}
     \end{proof}
-  \item \(\phi \proves \phi \lor \psi\)\hfill（析取引入）
+  \item \(\phi \proves \phi \lor \psi\)\hfill（\hypertarget{ded:disjIntro}{析取引入}）
     \begin{proof}
       \leavevmode
       \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
@@ -671,7 +672,7 @@
         \ndl{}{\(\phi \to \psi\)}{\ref{2}，\hyperlink{ded:conjElim}{合取消去}}
       \end{ND}
     \end{proof}
-  \item \(\Set{\neg\phi \to \psi, \neg\phi \to \neg\psi} \proves \phi\)\hfill（反证法）
+  \item \(\Set{\neg\phi \to \psi, \neg\phi \to \neg\psi} \proves \phi\)\hfill（\hypertarget{ded:contradict}{反证法}）
     \begin{proof}
       \leavevmode
       \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
@@ -682,7 +683,7 @@
         \ndl{}{\(\phi\)}{\ref{2}，\ref{4}，MP}
       \end{ND}
     \end{proof}
-    \(\Set{\phi \to \psi, \phi \to \neg\psi} \proves \neg\phi\)\hfill（归谬法）
+    \(\Set{\phi \to \psi, \phi \to \neg\psi} \proves \neg\phi\)\hfill（\hypertarget{ded:raa}{归谬法}）
     \begin{proof}
       \leavevmode
       \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
@@ -885,7 +886,7 @@
         \ndl{}{\(\psi \lor \phi\)}{\ref{3}，定义2.2.4}
       \end{ND}
     \end{proof}
-  \item \(\neg(\phi \land \psi) \vdashv \neg\phi \lor \neg\psi\)\hfill（德·摩根律1）
+  \item \(\neg(\phi \land \psi) \vdashv \neg\phi \lor \neg\psi\)\hfill（\hypertarget{ded:dm1}{德·摩根律1}）
     \begin{proof}
       先证\(\neg(\phi \land \psi) \proves \neg\phi \lor \neg\psi\)。
       \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
@@ -902,7 +903,7 @@
         \ndl{}{\(\neg(\phi \land \psi)\)}{\ref{3}，定义2.2.4}
       \end{ND}
     \end{proof}
-    \(\neg(\phi \lor \psi) \vdashv \neg\phi \land \neg\psi\)\hfill（德·摩根律2）
+    \(\neg(\phi \lor \psi) \vdashv \neg\phi \land \neg\psi\)\hfill（\hypertarget{ded:dm2}{德·摩根律2}）
     \begin{proof}
       先证\(\neg(\phi \lor \psi) \proves \neg\phi \land \neg\psi\)。
       \begin{ND}[][ded:dmDisjElim][][\rwidth{ded:conjAssoc2}]
@@ -1097,24 +1098,24 @@
         \ndl{}{\(\phi \to \psi \to \theta\)}{\ref{2}，\ref{3}，示例2.4.19}
       \end{ND}
       \begin{remark}
-        一些逻辑学家会将该律称作Curry公式，虽然此公式早在1894年就见于Cesare Burali-Forti的著作《数理逻辑》\href{https://archive.org/details/BuraliFortiLogicaMatematica/page/n28/mode/1up}{第24页}。“输出律”的名字是Peano在《数理逻辑研究》（1897）一文中的\href{https://archive.org/details/peano-studii-di-logica-matematica/page/18/mode/1up}{第18页}给出的，但仅仅是指\(\dashv\)的方向。他在同年出版的《数学的形式》第2版中的\href{https://gallica.bnf.fr/ark:/12148/bpt6k84142s/f39.item}{第38页}把\(\vdash\)的方向称作“输入律”。
+        一些逻辑学家会将此律称作Curry公式，虽然此公式早在1894年就见于Cesare Burali-Forti的著作《数理逻辑》\href{https://archive.org/details/BuraliFortiLogicaMatematica/page/n28/mode/1up}{第24页}。“输出律”的名字是Peano在《数理逻辑研究》（1897）一文\href{https://archive.org/details/peano-studii-di-logica-matematica/page/18/mode/1up}{第18页}给出的，但仅仅是指\(\dashv\)的方向。他在同年出版的《数学的形式》第2版\href{https://gallica.bnf.fr/ark:/12148/bpt6k84142s/f39.item}{第38页}把\(\vdash\)的方向称作“输入律”。此律还见于《数学原理》第1卷第115页。
       \end{remark}
     \end{proof}
   \item \(\phi \to \psi \vdashv \neg\psi \to \neg\phi\)\hfill（\hypertarget{ded:contrapose1}{假言易位1}）
     \begin{proof}
-      先证\(\neg\psi \to \neg\phi \proves \phi \to \psi\)，如下。
-      \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
-        \ndl{}{\(\neg\psi \to \neg\phi\)}{假设}\label{1}
-        \ndl{}{\((\neg\psi \to \neg\phi) \to (\phi \to \psi)\)}{\hyperref[lem:contrapose1]{假言易位引理1}}\label{2}
-        \ndl{}{\(\phi \to \psi\)}{\ref{1}，\ref{2}，MP}
-      \end{ND}
-      再证\(\phi \to \psi \proves \neg\psi \to \neg\phi\)，如下。
+      先证\(\phi \to \psi \proves \neg\psi \to \neg\phi\)，如下。
       \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
         \ndl{}{\(\phi \to \psi\)}{假设}\label{1}
         \ndl{}{\((\phi \to \psi) \to (\phi \to \neg\psi) \to \neg\phi\)}{\hyperref[lem:p3var]{\(\rm P_3\)变体}}\label{2}
         \ndl{}{\(\neg\psi \to (\phi \to \neg\psi)\)}{\(\rm P_1\)}\label{3}
         \ndl{}{\((\phi \to \neg\psi) \to \neg\phi\)}{\ref{1}，\ref{2}，MP}\label{4}
         \ndl{}{\(\neg\psi \to \neg\phi\)}{\ref{3}，\ref{4}，示例2.4.19}
+      \end{ND}
+      再证\(\neg\psi \to \neg\phi \proves \phi \to \psi\)，如下。
+      \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
+        \ndl{}{\(\neg\psi \to \neg\phi\)}{假设}\label{1}
+        \ndl{}{\((\neg\psi \to \neg\phi) \to (\phi \to \psi)\)}{\hyperref[lem:contrapose1]{假言易位引理1}}\label{2}
+        \ndl{}{\(\phi \to \psi\)}{\ref{1}，\ref{2}，MP}
       \end{ND}
     \end{proof}
     \(\neg\phi \to \psi \vdashv \neg\psi \to \phi\)\hfill（\hypertarget{ded:contrapose2}{假言易位2}）
@@ -1134,7 +1135,7 @@
       %   \ndl{}{\(\neg\psi \to \phi\)}{\ref{3}，\ref{4}，示例2.4.19}
       % \end{ND}
     \end{proof}
-    \(\phi \to \neg\psi \vdashv \psi \to \neg\phi\)\hfill（假言易位3）
+    \(\phi \to \neg\psi \vdashv \psi \to \neg\phi\)\hfill（\hypertarget{ded:contrapose3}{假言易位3}）
     \begin{proof}
       同上，只需证明\(\phi \to \neg\psi \proves \psi \to \neg\phi\)。
       \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
@@ -1172,7 +1173,7 @@
         \ndl{}{\((\neg\phi \to \neg\psi) \land (\neg\psi \to \neg\phi)\)}{\ref{6}，\ref{7}，\hyperlink{ded:conjIntro}{合取引入}}\label{8}
         \ndl{}{\(\neg\phi \leftrightarrow \neg\psi\)}{\ref{8}，定义2.2.4}
       \end{ND}
-      再证\(\neg\phi \leftrightarrow \neg\psi \proves \phi \leftrightarrow \psi\)。可以仿照上面的演绎，步骤完全一样，就是在使用假言易位1的时候，使用的方向不一样。下面是另外一种思路。
+      再证\(\neg\phi \leftrightarrow \neg\psi \proves \phi \leftrightarrow \psi\)。可以仿照上面的演绎，步骤完全一样，就是在使用\hyperlink{ded:contrapose1}{假言易位1}的时候，使用的方向不一样。下面是另外一种思路。
       \begin{ND}[][][][\rwidth{ded:conjAssoc2}]
         \ndl{}{\(\neg\phi \leftrightarrow \neg\psi\)}{假设}\label{1}
         \ndl{}{\(\neg\neg\phi \leftrightarrow \neg\neg\psi\)}{\ref{1}，此证明第1部分}\label{2}
@@ -1194,12 +1195,56 @@
     \end{proof}
     \(\neg\phi \leftrightarrow \psi \vdashv \phi \leftrightarrow \neg\psi\)\hfill（等值否定交换2）
     \begin{proof}
-      先证\(\neg\phi \leftrightarrow \psi \proves \phi \leftrightarrow \neg\psi\)。只需将前一个证明第1部分第\ndref{ded:equiv}{6}、\ndref{ded:equiv}{7}步中的假言易位1依次改成假言易位3和2即可。
+      先证\(\neg\phi \leftrightarrow \psi \proves \phi \leftrightarrow \neg\psi\)。只需将前一个证明第1部分第\ndref{ded:equiv}{6}、\ndref{ded:equiv}{7}步中的\hyperlink{ded:contrapose1}{假言易位1}依次改成\hyperlink{ded:contrapose3}{假言易位3}和\hyperlink{ded:contrapose2}{2}即可。
 
-      再证\(\phi \leftrightarrow \neg\psi \proves \neg\phi \leftrightarrow \psi\)。只需将前一个证明第1部分第\ndref{ded:equiv}{6}、\ndref{ded:equiv}{7}步中的假言易位1依次改成假言易位2和3即可。
+      再证\(\phi \leftrightarrow \neg\psi \proves \neg\phi \leftrightarrow \psi\)。只需将前一个证明第1部分第\ndref{ded:equiv}{6}、\ndref{ded:equiv}{7}步中的\hyperlink{ded:contrapose1}{假言易位1}依次改成\hyperlink{ded:contrapose2}{假言易位2}和\hyperlink{ded:contrapose3}{3}即可。
     \end{proof}
     % \(\phi \leftrightarrow \neg\psi \proves \neg\phi \leftrightarrow \psi\)\hfill（等值否定交换3）
   \end{enumerate}
+\item[习题 2.4.30] 对\hyperlink{ded:contrapose1}{假言易位1}的\(\vdash\)方向使用一次演绎定理即可。
+\item[习题 2.4.31] 见\hyperref[lem:p3var]{\(\rm P_3\)变体}，或者对\hyperlink{ded:raa}{归谬法}使用一次演绎定理。
+\item[习题 2.4.32] 见\hyperref[lem:dnElim]{双重否定消去引理}，或者对\hyperlink{ded:dnElim}{双重否定消去}使用一次演绎定理。
+\item[习题 2.4.33] \(\neg(\phi \lor \psi \lor \theta) \proves \neg(\phi \land \psi)\)。
+  \begin{proof}
+    \leavevmode
+    \begin{ND}
+      \ndl{}{\(\neg((\phi \lor \psi) \lor \theta)\)}{假设}\label{1}
+      \ndl{}{\(\neg(\phi \lor \psi) \land \neg\theta\)}{\ref{1}，\hyperlink{ded:dm2}{德·摩根律2}}\label{2}
+      \ndl{}{\(\neg(\phi \lor \psi)\)}{\ref{2}，\hyperlink{ded:conjElim}{合取消去}}\label{3}
+      \ndl{}{\(\neg\phi \land \neg\psi\)}{\ref{3}，\hyperlink{ded:dm2}{德·摩根律2}}\label{4}
+      \ndl{}{\(\neg\phi\)}{\ref{4}，\hyperlink{ded:conjElim}{合取消去}}\label{5}
+      \ndl{}{\(\neg\phi \lor \neg\psi\)}{\ref{5}，\hyperlink{ded:disjIntro}{析取引入}}\label{6}
+      \ndl{}{\(\neg(\phi \land \psi)\)}{\ref{6}，\hyperlink{ded:dm1}{德·摩根律1}}
+    \end{ND}
+  \end{proof}
+\item[习题 2.4.34] 见\hyperlink{ded:disjElim}{析取消去}。
+\item[习题 2.4.35] \(\phi \land \psi \to \theta \proves \phi \land \neg\theta \to \neg\psi\)。
+  \begin{proof}
+    \leavevmode
+    \begin{ND}
+      \ndl{}{\(\phi \land \psi \to \theta\)}{假设}\label{1}
+      \ndl{}{\(\phi \to (\psi \to \theta)\)}{\ref{1}，\hyperlink{ded:exp}{输出律}}\label{2}
+      \ndl{}{\((\psi \to \theta) \to (\neg\theta \to \neg\psi)\)}{\hyperlink{ded:contrapose1}{假言易位1}，演绎定理}\label{3}
+      \ndl{}{\(\phi \to (\neg\theta \to \neg\psi)\)}{\ref{2}，\ref{3}，示例2.4.19}\label{4}
+      \ndl{}{\(\phi \land \neg\theta \to \neg\psi\)}{\ref{4}，\hyperlink{ded:exp}{输出律}}
+    \end{ND}
+  \end{proof}
+\item[习题 2.4.36]
+  \begin{itemize}
+  \item[]
+  \item[引理 2.4.24]
+    \begin{proof}
+      对\(\Gamma \cup \Set{\neg\phi} \proves \psi\)和\(\Gamma \cup \Set{\neg\phi} \proves \neg\psi\)分别使用演绎定理就能得到
+      \begin{gather}
+        \Gamma \proves \neg\phi \to \psi\label{2.4.24.1}
+        \siand
+        \Gamma \proves \neg\phi \to \neg\psi。\label{2.4.24.2}
+      \end{gather}
+      再对式\eqref{2.4.24.1}和\eqref{2.4.24.2}中的语法后承（推论）使用一次\hyperlink{ded:contradict}{反证法}即可得到\(\Gamma \proves \phi\)。
+    \end{proof}
+  \item[引理 2.4.25] 同上，先对两个条件分别使用演绎定理，然后再对得到的两个推论使用一次\hyperlink{ded:raa}{归谬法}就能得到所要结果。
+  \item[引理 2.4.26] 同上，先对两个条件分别使用演绎定理，然后再对得到的两个推论和示例2.4.10使用一次\hyperlink{ded:disjElim}{析取消去}就能得到所要结果。
+  \end{itemize}
 \end{description}
 
 \end{document}
